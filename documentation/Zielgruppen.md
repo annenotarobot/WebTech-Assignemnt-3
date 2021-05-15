@@ -2,7 +2,7 @@
 Beim Suchen nach Themen für Abschluss-und Seminararbeiten sind die möglichen Nutzer entweder Studierende, die nach einer Abschlussarbeit suchen, oder verschiedene Interessierte wie etwa ProfessorInnen, potentielle Studierende, oder auch andere, die sich aus Neugier das Angebot anschauen möchten. Allerdings sind im **Hauptfokus die Studierenden, die nach einer Abschlussarbeit suchen bzw. sich über das Angebot informieren wollen**.
 
 ### 1. Studierende ohne Präferenzen
-Die üblichen Studierenden, die nach einer Abschlussarbeit sucht, wird alles **schnell** und **übersichtlich** dargestellt haben wollen, damit sie etwa die **Gesammtheit des Angebots inspizieren können**, aber auch **schnell an die Informationen der einzelnen Themen und Bereiche herankommen**.
+Die üblichen Studierenden, die nach einer Abschlussarbeit suchen, werden alles **schnell** und **übersichtlich** dargestellt haben wollen, damit sie etwa die **Gesammtheit des Angebots inspizieren können**, aber auch **schnell an die Informationen der einzelnen Themen und Bereiche herankommen**.
 
 ### 2. Studierende mit (fach-)spezifische Präferenzen
 Diese Studierenden haben explizite Interessen und möchten **gezielt nach einem Thema suchen**, das ihrer Präferenzen entspricht. Z.B. könnte jemand ein besonderes Interesse am Thema K.I. haben. Somit möchte dieser **nach Tags oder Schlüsselwörtern filtern**.
