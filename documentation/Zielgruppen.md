@@ -21,6 +21,6 @@ Sei es ein Professor, ein Student im Anfang vom Studium, jemand der kein Student
 | ----------- | ----------- | ----------- | ----------- | ----------- |
 | übersichtliche Darstellung des allgemeinen Angebots | **kritisch**       |     ---          | ---          | erwünscht          |
 | schnelle & klare Darstellung der Informationen zu den einzelnen Arbeiten     | **kritisch**       | erwünscht          | erwünscht          | erwünscht          |
-| Suche nach Tag/Keyword   | ---       | **kritisch**          | ---          | ---          |
+| Suche nach Tag/Keyword   | ---       | **kritisch**          | ---          | erwünscht          |
 | Suche nach Betreuer   | ---       | ---          | **kritisch**          | ---          |
 | visuell ansprechende (schöne) Darstellung   | ---       | ---          | ---          | **kritisch**          |
