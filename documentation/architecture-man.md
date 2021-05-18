@@ -18,6 +18,8 @@ Dem Parser werden die Rohdaten vom Requester übergeben, die von ihm verarbeitet
 weitere Arbeit durch andere Softwareelemente vereinfacht. 
 Die aufbereiteten Daten werden vom Parser-Element an die Viewkomponente übergeben zur endgültigen Darstellung. Nach der Verarbeitung aller Daten durch den Parser,
 wird diese Softwarekomponente zum Bereitsteller dieser Daten und startet eine Wartephase. 
+Eine parallelisierung der Datenverarbeitung und Darstellung könnte das Nutzererlebnis verbessern, ist aber mit einem Mehraufwand in der Entwicklung verbunden. Da 
+die aktuelle Menge an zu verarbeitenden Daten vergleichsweise gering ist, ist anzunehmen, dass eine Schrittweise Abwicklung von Datenverarbeitung und Darstellung wenig bis keinen Einfluss auf das Nutzererlebnis haben werden. Stellt sich in der Entwicklung jedoch heraus, dass die Latenz durch Parser und Requester einen zu großen Zeitraum beanspruchen erlaubt dieses Modell eine alternative. Anstatt alle Daten gleichzeitig zu verarbeiten, werden die Daten in Schichten, nach einer bestimmten Hierachie verarbeitet und sobald eine Schicht abgeschlossen ist, wird die Ansicht von Angular/HTML aktualisiert. Die Ansicht wird also verfollständigt, während der Nutzer zeitgleich mit den bereits abgeschlossenen Datenschichten interagieren kann. 
 
 ## View
 
