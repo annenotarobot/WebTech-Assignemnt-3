@@ -1,0 +1,24 @@
+
+<p>Contents:</p>
+<ul>
+        <li *ngFor="let content of getContents('Abschlussarbeit')">{{content.name}}<br/>
+MetaTags: {{content.getMetaTagsAsString()}}<br/>
+Abstract: {{content.stringValue}}<br/>URL: {{content.uri}}<br/>
+Personen: <ul>
+  <li *ngFor="let person of getConnectedPersons(content)">{{person.lastname}}
+</ul><br/>
+Organisationen: <ul>
+  <li *ngFor="let organisation of getConnectedOrganisations(content)">{{organisation.name}}
+</ul><br/>
+Images: <ul>
+  <li *ngFor="let image of content.getImages()">{{image.fileUrl}}
+</ul>
+</li>
+</ul>
+
+<p>MetaTags:</p>
+<ul>
+        <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
+</ul>
+
+
