@@ -67,6 +67,7 @@ li{
   font-size: 1em;
   color: white;
   background-color: #222222;
+  margin: 4px;
   padding: 4px;
 }
 .mat-stroked-button{
@@ -74,11 +75,12 @@ li{
   font-size: 1em;
   color: #222222;
   background-color: white;
+  margin: 4px;
   padding: 4px;
 }
 .mat-fab{
   font-family: sans-serif;
   font-size: 1em;
-  color:warn;
   padding: 4px;
+  margin: 4px;
 }
