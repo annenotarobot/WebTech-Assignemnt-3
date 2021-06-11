@@ -9,7 +9,7 @@
 
 */
 html {
-  background-image: url(./app/images/sapce1.jpg);
+  background-image: url(assets/space1.jpg);
   background-attachment: fixed;
 }
 Body {
@@ -62,6 +62,23 @@ li{
   font-size: 1em;
   color: rgb(65, 65, 65);
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-raised-button{
+  font-family: sans-serif;
+  font-size: 1em;
+  color: white;
+  background-color: #222222;
+  padding: 4px;
+}
+.mat-stroked-button{
+  font-family: sans-serif;
+  font-size: 1em;
+  color: #222222;
+  background-color: white;
+  padding: 4px;
+}
+.mat-fab{
+  font-family: sans-serif;
+  font-size: 1em;
+  color:warn;
+  padding: 4px;
+}
