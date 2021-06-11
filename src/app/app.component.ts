@@ -56,7 +56,8 @@ export class AppComponent implements OnInit {
 
   openPopUp(): void {
     const dialogRef = this.dialog.open(PopupComponent, {
-      id: "0" // TODO: get ID of Abschlussarbeit
+      id: "0", // TODO: get ID of Abschlussarbeit
+      width: "70%"
     });
   }
 
