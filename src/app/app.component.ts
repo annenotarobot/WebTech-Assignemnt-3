@@ -1,8 +1,10 @@
+import { PopupComponent } from './utils/popup/popup.component';
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/communitymashup/model/item.model';
 import { Person } from 'src/app/communitymashup/model/person.model';
 import { Organisation } from 'src/app/communitymashup/model/organisation.model';
 import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,7 @@ import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.
 export class AppComponent implements OnInit {
   title = 'inforadiator-theses';
 
-  constructor(public communitymashup: CommunityMashupService) {
+  constructor(public communitymashup: CommunityMashupService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -50,6 +52,13 @@ export class AppComponent implements OnInit {
       if (item instanceof Organisation) { result.push(item); }
     } );
     return result;
+  }
+
+  openPopUp(): void {
+    const dialogRef = this.dialog.open(PopupComponent, {
+      id: "0", // TODO: get ID of Abschlussarbeit
+      width: "70%"
+    });
   }
 
 }

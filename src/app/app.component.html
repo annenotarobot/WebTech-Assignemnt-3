@@ -1,4 +1,9 @@
+<h1>Ankündigung Seminar- und Abschlussarbeiten</h1>
 
+<div>
+      <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
+</div>
+<h2>Filter</h2>
 <p>Contents:</p>
 <ul>
         <li *ngFor="let content of getContents('Abschlussarbeit')">{{content.name}}<br/>
@@ -20,5 +25,3 @@ Images: <ul>
 <ul>
         <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
 </ul>
-
-
