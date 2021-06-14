@@ -1,0 +1,22 @@
+<table style=width:100% table-layout = fixed>
+<tr>
+<th colspan=2>
+  <button mat-raised-button (click)="previous()" style="float: left;"> &lt;&lt; Vorheriges </button>
+  <button mat-stroked-button (click)="next()" style="float: left;"> Nächstes &gt;&gt; </button>
+</th>
+<th> <button mat-fab (click)="close()" style="float: right;" color=warn> X </button> </th>
+</tr>
+<tr>
+<th colspan="3"> <h3>{{get_name()}}</h3></th>
+</tr>
+<tr *ngIf = "is_image(); else noimageblock">
+<th colspan="2">{{get_info()}}</th>
+<th> <img class=smallimage src={{get_image_src()}}/></th>
+</tr>
+<ng-template #noimageblock>
+<tr>
+<th colspan="3">{{get_info()}} </th>
+</tr>
+</ng-template>
+
+</table>
