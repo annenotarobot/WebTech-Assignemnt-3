@@ -1,0 +1,13 @@
+.smallimage{
+  height: auto;
+  width: 10em;
+  padding: 10px;
+  display: block;
+}
+
+.mat-raised-button {
+  margin: 8px 8px 8px 0;
+}
+.mat-stroked-button {
+  margin: 8px 8px 8px 0;
+}
