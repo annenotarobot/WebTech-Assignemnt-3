@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'inforadiator-theses'`, () => {
+  it(`should have as title 'abschlussarbeiten'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('inforadiator-theses');
+    expect(app.title).toEqual('abschlussarbeiten');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('inforadiator-theses app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('abschlussarbeiten app is running!');
   });
 });
