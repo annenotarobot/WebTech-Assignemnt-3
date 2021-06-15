@@ -10,6 +10,7 @@ import {MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { PopupComponent } from './utils/popup/popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule, HttpClientModule,
     MatDialogModule, MatInputModule,
-    MatButtonModule, MatCardModule, MatFormFieldModule, BrowserAnimationsModule
+    MatButtonModule, MatCardModule, MatFormFieldModule, BrowserAnimationsModule, MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

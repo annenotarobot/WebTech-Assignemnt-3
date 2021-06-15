@@ -1,27 +1,74 @@
 <h1>Ankündigung Seminar- und Abschlussarbeiten</h1>
 
+
+<div id="accordion"> <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
+  <mat-accordion multi="true" #accordion="matAccordion">
+    <!-- Institute -->
+      <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let organisation of getOrganisations('cms_organization')" #expansionPanel="matExpansionPanel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{organisation.name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Arbeiten aus dem Institut {{organisation.name}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- SubInstitute -->
+        <mat-expansion-panel *ngFor="let corganisation of organisation.getChildOrganisations()">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{corganisation.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Arbeiten aus dem Sub-Institut {{corganisation.name}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <!-- Members -->
+          <mat-expansion-panel *ngFor="let member of corganisation.getMembers()"> <!-- WARUM WIRD DAS NICHT ANGEZEIGT??-->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{member.alternativeNames}}
+              </mat-panel-title>
+              <mat-panel-description>
+                Arbeiten von {{member.alternativeNames}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            abc
+          </mat-expansion-panel>
+        </mat-expansion-panel>
+      </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
 <div>
-      <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
+  <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
+  <button mat-raised-button (click)="accordion.openAll()">Expand All </button>
+  <button mat-raised-button (click)="accordion.closeAll()">Collapse All </button>
 </div>
 <h2>Filter</h2>
 <p>Contents:</p>
 <ul>
-        <li *ngFor="let content of getContents('Abschlussarbeit')">{{content.name}}<br/>
-MetaTags: {{content.getMetaTagsAsString()}}<br/>
-Abstract: {{content.stringValue}}<br/>URL: {{content.uri}}<br/>
-Personen: <ul>
-  <li *ngFor="let person of getConnectedPersons(content)">{{person.lastname}}
-</ul><br/>
-Organisationen: <ul>
-  <li *ngFor="let organisation of getConnectedOrganisations(content)">{{organisation.name}}
-</ul><br/>
-Images: <ul>
-  <li *ngFor="let image of content.getImages()">{{image.fileUrl}}
-</ul>
-</li>
+  <li *ngFor="let content of getContents('Abschlussarbeit')">{{content.name}}<br/>
+    MetaTags: {{content.getMetaTagsAsString()}}<br/>
+    Abstract: {{content.stringValue}}<br/>URL: {{content.uri}}<br/>
+    Personen:
+    <ul>
+      <li *ngFor="let person of getConnectedPersons(content)">{{person.lastname}}
+    </ul>
+    <br/>
+    Organisationen:
+    <ul>
+      <li *ngFor="let organisation of getConnectedOrganisations(content)">{{organisation.name}}
+    </ul>
+    <br/>
+    Images:
+    <ul>
+      <li *ngFor="let image of content.getImages()">{{image.fileUrl}}
+    </ul>
+  </li>
 </ul>
 
 <p>MetaTags:</p>
 <ul>
-        <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
+  <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
 </ul>
