@@ -4,13 +4,13 @@
 <div id="accordion"> <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
   <mat-accordion multi="true" #accordion="matAccordion">
     <!-- Institute -->
-      <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let organisation of getOrganisations('cms_organization')" #expansionPanel="matExpansionPanel">
+      <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let institut of getOrganisations('institut')" #expansionPanel="matExpansionPanel">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{organisation.name}}
+            {{institut.name}}
           </mat-panel-title>
           <mat-panel-description>
-            Arbeiten aus dem Institut {{organisation.name}}
+            Arbeiten aus dem Institut {{institut.name}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <!-- SubInstitute -->
