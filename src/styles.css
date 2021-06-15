@@ -81,3 +81,15 @@ li{
   font-size: 1em;
   margin: 8px 8px 8px 0;
 }
+.organisation-expansion-panel{
+  background-color: lightgrey;
+}
+.child-organisation-expansion-panel{
+  background-color: rgba(0,0,140,0.5);
+}
+.child-organisation-expansion-panel-text{
+  color: white;
+}
+.members-expansion-panel{
+  background-color: darkgray;
+}

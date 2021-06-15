@@ -6,25 +6,25 @@
     <!-- Institute -->
       <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let institut of getOrganisations('institut')" #expansionPanel="matExpansionPanel">
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title class="organisation-expansion-panel-text">
             {{institut.name}}
           </mat-panel-title>
-          <mat-panel-description>
+          <mat-panel-description class="organisation-expansion-panel-text">
             Arbeiten aus dem Institut {{institut.name}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <!-- SubInstitute -->
-        <mat-expansion-panel *ngFor="let corganisation of organisation.getChildOrganisations()">
+        <mat-expansion-panel class="child-organisation-expansion-panel" *ngFor="let corganisation of institut.getChildOrganisations()">
           <mat-expansion-panel-header>
-            <mat-panel-title>
+            <mat-panel-title class="child-organisation-expansion-panel-text">
               {{corganisation.name}}
             </mat-panel-title>
-            <mat-panel-description>
+            <mat-panel-description class="child-organisation-expansion-panel-text">
               Arbeiten aus dem Sub-Institut {{corganisation.name}}
             </mat-panel-description>
           </mat-expansion-panel-header>
           <!-- Members -->
-          <mat-expansion-panel *ngFor="let member of corganisation.getMembers()"> <!-- WARUM WIRD DAS NICHT ANGEZEIGT??-->
+          <mat-expansion-panel class="members-expansion-panel" *ngFor="let member of corganisation.getMembers()"> <!-- WARUM WIRD DAS NICHT ANGEZEIGT??-->
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{member.alternativeNames}}
