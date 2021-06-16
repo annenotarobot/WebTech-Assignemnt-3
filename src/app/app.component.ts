@@ -1,3 +1,7 @@
+import { MetaTag } from './communitymashup/model/metatag.model';
+import { Tag } from './communitymashup/model/tag.model';
+import { Connection } from './communitymashup/model/connection.model';
+import { Content } from './communitymashup/model/content.model';
 import { PopupComponent } from './utils/popup/popup.component';
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/communitymashup/model/item.model';
@@ -13,6 +17,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AppComponent implements OnInit {
   title = 'inforadiator-theses';
+  filterPerson: Person = null;
+  filterTag: Tag = null;
 
   constructor(public communitymashup: CommunityMashupService, public dialog: MatDialog) {
   }
@@ -33,7 +39,20 @@ export class AppComponent implements OnInit {
     return result;
   }
   getOrganisations(metaTag) {
-    return this.communitymashup.getOrganisations(metaTag);
+    var orgs = this.communitymashup.getOrganisations(metaTag);
+    // var results = []
+    // if (metaTag == 'institut'){
+    //   orgs.forEach(org => {
+    //     var conItems = org.getConnectedItems()
+    //     console.log(conItems)
+    //     if (conItems.filter(con => con.MetaTag.includes("Abschlussarbeit")).length>0){
+    //       results.push(org)
+    //       console.log("ein Erfolg")
+    //     };
+    //   });
+    //   return results;
+    // }
+    return orgs;
   }
 
   getConnectedPersons(item:Item): Person[] {
@@ -51,8 +70,48 @@ export class AppComponent implements OnInit {
     items.forEach(item => {
       if (item instanceof Organisation) { result.push(item); }
     } );
+
     return result;
   }
+
+
+
+
+  // hasAbschlussarbeit(person:Person):Boolean{
+  //   // returns whether the person is connected to an Abschlussarbeit
+  //   console.log("person is: "+person.firstname);
+  //   var connections = person.getConnectedItems();
+  //   var result = [];
+  //   if (connections.length !=0){
+  //     console.log("connections length not 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: "+connections.length);
+  //   };
+
+  //   connections.forEach(item => {
+  //     if (item instanceof Content) {
+  //       console.log("here2");
+  //       var tags = item.getMetaTags()
+  //       tags.forEach(tag => {
+  //         if (tag.name == "Abschlussarbeit") { result.push(item); console.log("here2");}
+  //       })}})
+
+  //   return (result.length !=0);
+  // }
+
+  // getPersonsWithAbschlussarbeit():Person[]{
+  //   var allPersons:Person[] = this.getPersons(null);
+  //   console.log("getPersonsWithAbschlussarbeit "+allPersons[1].lastname);
+  //   var personsWithAbschlussarbeit = [];
+  //   if(personsWithAbschlussarbeit.length==0) console.log("personsWithAbschlussarbeit leer ");
+  //   allPersons.forEach(person => {
+  //     if (this.hasAbschlussarbeit(person)) {
+  //       personsWithAbschlussarbeit.push(person);
+  //       if(personsWithAbschlussarbeit.length!=0)console.log("personsWithAbschlussarbeit zwischenschritt "+personsWithAbschlussarbeit[0].lastname);
+  //     }
+  //   })
+  //   if(personsWithAbschlussarbeit.length!=0)console.log("personsWithAbschlussarbeit end "+personsWithAbschlussarbeit[0].lastname);
+  //   return personsWithAbschlussarbeit
+
+  // }
 
   openPopUp(): void {
     const dialogRef = this.dialog.open(PopupComponent, {

@@ -11,16 +11,21 @@ import { AppComponent } from './app.component';
 import { PopupComponent } from './utils/popup/popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSelectModule} from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { BubbleComponent } from './utils/bubble/bubble.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PopupComponent
+    PopupComponent,
+    BubbleComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
     MatDialogModule, MatInputModule,
-    MatButtonModule, MatCardModule, MatFormFieldModule, BrowserAnimationsModule, MatExpansionModule
+    MatButtonModule, MatCardModule, MatFormFieldModule, BrowserAnimationsModule, MatExpansionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,46 @@
 <h1>Ankündigung Seminar- und Abschlussarbeiten</h1>
 
+<!--
+<div id="filter">
+<table style=width:100%>
+<tr>
+<th>
+  Wähle einen Betreuer:
+</th>
+  <th>
+  <mat-form-field>
+    <mat-label>Betreuer wählen</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person">
+        {{person.lastname}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  </th>
+</tr>
+<tr>
+<th>
+  Wähle einen Betreuer:
+</th>
+  <th>
+  <mat-form-field>
+    <mat-label>Tag wählen</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person">
+        {{person.lastname}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  </th>
+</tr>
+</table>
+</div>-->
+
+<div id="bubbles" *ngFor="let institut of getOrganisations('institut')">
+  <div *ngIf = "institut != undefined">
+  <app-bubble [institute]="institut"></app-bubble>
+  </div>
+</div>
 
 <div id="accordion"> <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
   <mat-accordion multi="true" #accordion="matAccordion">
@@ -46,6 +87,7 @@
   <button mat-raised-button (click)="accordion.closeAll()">Collapse All </button>
 </div>
 <h2>Filter</h2>
+<!--
 <p>Contents:</p>
 <ul>
   <li *ngFor="let content of getContents('Abschlussarbeit')">{{content.name}}<br/>
@@ -71,4 +113,4 @@
 <p>MetaTags:</p>
 <ul>
   <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
-</ul>
+</ul>-->
