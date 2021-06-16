@@ -16,7 +16,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div *ngFor="let content of getContents('Abschlussarbeit')">
-        <div
+        <div class="content-div"
           *ngFor="let orga of getConnectedOrganisations(content)">
           <mat-expansion-panel *ngIf="orga.name == institut.name">
             <mat-expansion-panel-header>
@@ -24,7 +24,8 @@
                 {{content.alternativeNames}}
               </mat-panel-title>
             </mat-expansion-panel-header>
-            {{content.stringValue}}
+            {{content.stringValue}}<br>
+            <img width="auto" src="{{content.getImages()[0]['fileUrl']}}">
           </mat-expansion-panel>
         </div>
       </div>
