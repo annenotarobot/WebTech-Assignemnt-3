@@ -1,32 +1,10 @@
 import { Organisation } from 'src/app/communitymashup/model/organisation.model';
 import { Component, Input, OnInit } from '@angular/core';
-import { trigger,
-  state,
-  style,
-  animate,
-  transition } from '@angular/animations';
-import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-bubble',
   templateUrl: './bubble.component.html',
   styleUrls: ['./bubble.component.css'],
-  animations: [
-    trigger('move',[
-      state('moving', style({
-        height: '200px',
-        opacity: 1,
-        backgroundColor: 'yellow'
-      })),
-    ]),
-    trigger('selected',[
-      state('open', style({
-        height: '200px',
-        opacity: 1,
-        backgroundColor: 'yellow'
-      })),
-    ]),
-  ]
 })
 export class BubbleComponent implements OnInit {
   @Input() institute: Organisation;
@@ -34,28 +12,30 @@ export class BubbleComponent implements OnInit {
   professuren: Organisation[];
   instElement: HTMLElement;
   background = ["#b61827","#b4004e", "#790e8b", "#26418f", "#0086c3", "#338a3e", "#c9bc1f", "#c77800", "#c63f17", "#5f4339", "#8d8d8d", "#4b636e", "#005005", "#38006b", "#001064", "#b53d00", "#1b1b1b"][Math.floor(Math.random()*16.9)];
-  background_lighter:String;
-  left = String(Math.floor(Math.random()*70.5)+15).concat("%");
-  top = String(Math.floor(Math.random()*80.5)+10).concat("%");
+  background_lighter:string;
+  left = (Math.floor(Math.random()*70.5)+15).toString().concat("%");
+  top = (Math.floor(Math.random()*80.5)+10).toString().concat("%");
   constructor() {
   }
 
   ngOnInit(): void {
     this.professuren = this.institute.getChildOrganisations();
-    this.background_lighter = this.lightenDarkenColor(this.background, 20);
+    this.background_lighter = this.lightenDarkenColor(this.background, 130);
   }
 
-  getProfessurXY(professur:Organisation): String[]{
+  getProfessurStyle(professur:Organisation): string{
     const idx = this.professuren.indexOf(professur);
     const radius = document.getElementById(this.institute.name).offsetWidth/2 +3;
     const center_x = document.getElementById(this.institute.name).offsetLeft + radius;
     const center_y = document.getElementById(this.institute.name).offsetTop + radius;
-    const angle=2*Math.PI / this.professuren.length * idx
+    const angle=2*Math.PI / this.professuren.length * idx;
 
     const x = center_x + radius * Math.cos(angle);
     const y = center_y + radius + Math.sin(angle);
 
-    return [String(x),String(y)]
+    var res = "background-color: ".concat(this.background_lighter, "; left:", x.toString(), "; top:", y.toString(), ";");
+    console.log(res);
+    return res;
   }
 
   toggleArbeitsthema(professur:Organisation):void{
@@ -68,7 +48,7 @@ export class BubbleComponent implements OnInit {
     document.getElementById(this.institute.name).classList.toggle("brighten")
   }
 
-  lightenDarkenColor(col,amt):String {
+  lightenDarkenColor(col,amt):string {
     var usePound = false;
     if ( col[0] == "#" ) {
         col = col.slice(1);

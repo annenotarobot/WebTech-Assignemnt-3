@@ -10,8 +10,7 @@ class="bubble"
 <div *ngFor="let professur of professuren">
 <button id={{professur.name}}
 class="subbubble"
-[style.background-color] = "background_lighter"
-[style.left,style.top] = "getProfessurXY()">
+style = {{getProfessurStyle(professur)}}>
 </button>
 </div>
 </div>
