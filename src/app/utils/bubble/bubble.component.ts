@@ -25,15 +25,16 @@ export class BubbleComponent implements OnInit {
 
   getProfessurStyle(professur:Organisation): string{
     const idx = this.professuren.indexOf(professur);
-    const radius = document.getElementById(this.institute.name).offsetWidth/2 +3;
-    const center_x = document.getElementById(this.institute.name).offsetLeft + radius;
-    const center_y = document.getElementById(this.institute.name).offsetTop + radius;
-    const angle=2*Math.PI / this.professuren.length * idx;
+    console.log(document.getElementById(this.institute.name).offsetWidth*0.25, document.getElementById(this.institute.name).offsetLeft, document.getElementById(this.institute.name).offsetTop);
+    const radius = 125;
+    var center_x = document.getElementById(this.institute.name).offsetLeft+radius;
+    var center_y = document.getElementById(this.institute.name).offsetTop+radius;
+    const angle= (idx+1)/this.professuren.length;
+    const bigger_radius = radius+90;
+    var prof_left = center_x + bigger_radius*Math.cos(2*Math.PI*angle)-90;
+    var prof_top = center_y + bigger_radius*Math.sin(2*Math.PI*angle)-90;
 
-    const x = center_x + radius * Math.cos(angle);
-    const y = center_y + radius + Math.sin(angle);
-
-    var res = "background-color: ".concat(this.background_lighter, "; left:", x.toString(), "; top:", y.toString(), ";");
+    var res = "background-color: ".concat(this.background_lighter, "; left:", prof_left.toString(), "px; top:", prof_top.toString(), "px;");
     console.log(res);
     return res;
   }

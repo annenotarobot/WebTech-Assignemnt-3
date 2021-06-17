@@ -10,6 +10,7 @@ import { Organisation } from 'src/app/communitymashup/model/organisation.model';
 import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.service';
 import { MatDialog } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   title = 'inforadiator-theses';
   filterPerson: Person = null;
   filterTag: Tag = null;
+  creative: boolean = false;
 
   constructor(public communitymashup: CommunityMashupService, public dialog: MatDialog) {
   }
@@ -41,17 +43,17 @@ export class AppComponent implements OnInit {
   getOrganisations(metaTag) {
     var orgs = this.communitymashup.getOrganisations(metaTag);
     var results = [];
-    if (metaTag == 'institut' && orgs!=null){
-      orgs.forEach(org => {
-        var conItems = org.getConnectedFromItems()
-        if (conItems.length >0){
-          if (conItems.filter(con => con.getMetaTagsAsString().includes("Abschlussarbeit")).length>0){
-          results.push(org)
-          }
-        };
-      });
-      return results;
-    }
+    // if (metaTag == 'institut' && orgs!=null){
+    //   orgs.forEach(org => {
+    //     var conItems = org.getConnectedFromItems()
+    //     if (conItems.length >0){
+    //       if (conItems.filter(con => con.getMetaTagsAsString().includes("Abschlussarbeit")).length>0){
+    //       results.push(org)
+    //       }
+    //     };
+    //   });
+    //   return results;
+    // }
     return orgs;
   }
 
@@ -95,12 +97,14 @@ export class AppComponent implements OnInit {
   getPersonsWithAbschlussarbeit():Person[]{
     var allPersons:Person[] = this.getPersons(null);
     var personsWithAbschlussarbeit = [];
-    allPersons.forEach(person => {
-      if (this.hasAbschlussarbeit(person)) {
-        personsWithAbschlussarbeit.push(person);
-      //console.log("personsWithAbschlussarbeit nicht leer ");
-      }
-    })
+    if (allPersons != undefined){
+      allPersons.forEach(person => {
+        if (this.hasAbschlussarbeit(person)) {
+          personsWithAbschlussarbeit.push(person);
+          //console.log("personsWithAbschlussarbeit nicht leer ");
+        }
+      })
+    }
     return personsWithAbschlussarbeit
 
   }
@@ -110,6 +114,10 @@ export class AppComponent implements OnInit {
       id: "0", // TODO: get ID of Abschlussarbeit
       width: "70%"
     });
+  }
+
+  valid(org: Organisation):boolean{
+    return this.creative && (org!=undefined)
   }
 
 }
