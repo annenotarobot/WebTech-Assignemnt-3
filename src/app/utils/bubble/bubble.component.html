@@ -1,0 +1,17 @@
+<button id={{this.institute.name}}
+class="bubble"
+(click)="toggleProfessuren()"
+[style.background-color] = "background"
+[style.left] = "left"
+[style.top] = "top"> {{institute.name}}
+</button>
+
+<div *ngIf = "showProfessuren">
+<div *ngFor="let professur of professuren">
+<button id={{professur.name}}
+class="subbubble"
+[style.background-color] = "background_lighter"
+[style.left,style.top] = "getProfessurXY()">
+</button>
+</div>
+</div>

@@ -1,0 +1,101 @@
+
+.bubble {
+	width: 20em;
+	height: 20em;
+	position: fixed;
+	left:700px;
+	border-radius: 10em;
+	box-shadow: inset 0 -5px 15px rgba(47, 31, 139, 0.4),
+				inset -2px -1px 40px rgba(0,0,0,0.4),
+				0 0 1px #000;
+  color: white;
+  background-color: black;
+	position: absolute;
+	top: 10px;
+	z-index: 11;
+	-webkit-animation: bounce 7s 1s ease-in-out infinite;
+	-moz-animation: bounce 7s 1s ease-in-out infinite;
+	animation: bounce 7s 1s ease-in-out infinite;
+}
+.subbubble {
+  width: 13em;
+	height: 13em;
+	position: fixed;
+	left:700px;
+	border-radius: 7.5em;
+	box-shadow: inset 0 -5px 15px rgba(47, 31, 139, 0.4),
+				inset -2px -1px 40px rgba(0,0,0,0.4),
+				0 0 1px #000;
+  color: white;
+  background-color: black;
+	position: absolute;
+	top: 10px;
+	z-index: 11;
+}
+.bubble:hover {
+  filter: brightness(150%);
+}
+.brighten{
+  filter:brightness(150%)
+}
+.paused{
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+  -moz-animation-play-state: paused;
+}
+
+@-moz-keyframes bounce {
+	0% {}
+	40% {}
+	50% {top: 240px;
+		height: 18em;
+	}
+	70% {
+		bottom:0;
+		}
+	95%{}
+	100% {}
+}
+@-webkit-keyframes bounce {
+	0% {}
+	40% {}
+	50% {top: 240px;
+		height: 18em;
+	}
+	70% {
+		bottom:0;
+		}
+	95%{}
+	100% {}
+}
+@keyframes bounce {
+	0% {}
+	40% {}
+	50% {top: 240px;
+		height: 17em;
+  }
+	70% {
+		bottom:0;
+		}
+	95%{}
+	100% {}
+}
+
+@-moz-keyframes slide {
+	0% {}
+	50% {}
+	75% {}
+	100% {}
+}
+@-webkit-keyframes slide {
+	0% {}
+	50% {}
+	75% {}
+	100% {}
+}
+@keyframes slide {
+	0% {}
+	50% {}
+	75% {}
+	100% {}
+}
