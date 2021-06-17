@@ -1,6 +1,5 @@
 <h1>Ankündigung Seminar- und Abschlussarbeiten</h1>
 
-<!--
 <div id="filter">
 <table style=width:100%>
 <tr>
@@ -20,7 +19,7 @@
 </tr>
 <tr>
 <th>
-  Wähle einen Betreuer:
+  Wähle einen Tag:
 </th>
   <th>
   <mat-form-field>
@@ -34,12 +33,6 @@
   </th>
 </tr>
 </table>
-</div>-->
-
-<div id="bubbles" *ngFor="let institut of getOrganisations('institut')">
-  <div *ngIf = "institut != undefined">
-  <app-bubble [institute]="institut"></app-bubble>
-  </div>
 </div>
 
 <div id="accordion"> <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
@@ -114,3 +107,9 @@
 <ul>
   <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
 </ul>-->
+
+<div id="bubbles" *ngFor="let institut of getOrganisations('institut')">
+  <div *ngIf = "institut != undefined">
+  <app-bubble [institute]="institut"></app-bubble>
+  </div>
+</div>

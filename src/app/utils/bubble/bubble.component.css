@@ -2,7 +2,7 @@
 .bubble {
 	width: 20em;
 	height: 20em;
-	position: absolute;
+	position: relative;
 	border-radius: 10em;
 	box-shadow: inset 0 -5px 15px rgba(47, 31, 139, 0.4),
 				inset -2px -1px 40px rgba(0,0,0,0.4),
@@ -17,7 +17,7 @@
 .subbubble {
   width: 13em;
 	height: 13em;
-	position: absolute;
+	position: relative;
 	border-radius: 7.5em;
 	box-shadow: inset 0 -5px 15px rgba(69, 66, 83, 0.4),
 				inset -2px -1px 40px rgba(68, 68, 68, 0.4),
@@ -49,7 +49,7 @@
 		height: 18em;
 	}
 	70% {
-		bottom:0;
+		bottom:0%;
 		}
 	95%{}
 	100% {}
@@ -61,7 +61,7 @@
 		height: 18em;
 	}
 	70% {
-		bottom:0;
+		bottom:0%;
 		}
 	95%{}
 	100% {}
@@ -73,7 +73,7 @@
 		height: 17em;
   }
 	70% {
-		bottom:0;
+		bottom:0%;
 		}
 	95%{}
 	100% {}

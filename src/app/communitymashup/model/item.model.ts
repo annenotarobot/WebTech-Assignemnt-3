@@ -69,4 +69,17 @@ export class Item {
     return result;
   }
 
+   // get all items that connect to this item
+   getConnectedFromItems() : Item[] {
+    var result:Item[] = [];
+    var connections = this.service.getConnections(null);
+    connections.forEach(connection => {
+      if (connection.toId === this.ident) {
+        result.push(this.service.getItemById(connection.fromId))
+      }
+    } );
+    return result;
+
+  }
+
 }

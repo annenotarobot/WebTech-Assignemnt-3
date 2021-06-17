@@ -40,23 +40,23 @@ export class AppComponent implements OnInit {
   }
   getOrganisations(metaTag) {
     var orgs = this.communitymashup.getOrganisations(metaTag);
-    // var results = []
-    // if (metaTag == 'institut'){
-    //   orgs.forEach(org => {
-    //     var conItems = org.getConnectedItems()
-    //     console.log(conItems)
-    //     if (conItems.filter(con => con.MetaTag.includes("Abschlussarbeit")).length>0){
-    //       results.push(org)
-    //       console.log("ein Erfolg")
-    //     };
-    //   });
-    //   return results;
-    // }
+    var results = [];
+    if (metaTag == 'institut' && orgs!=null){
+      orgs.forEach(org => {
+        var conItems = org.getConnectedFromItems()
+        if (conItems.length >0){
+          if (conItems.filter(con => con.getMetaTagsAsString().includes("Abschlussarbeit")).length>0){
+          results.push(org)
+          }
+        };
+      });
+      return results;
+    }
     return orgs;
   }
 
   getConnectedPersons(item:Item): Person[] {
-    var items = item.getConnectedItems();
+    var items = item.getConnectedFromItems();
     var result = [];
     items.forEach(item => {
       if (item instanceof Person) { result.push(item); }
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
   }
 
   getConnectedOrganisations(item:Item): Organisation[] {
-    var items = item.getConnectedItems();
+    var items = item.getConnectedFromItems();
     var result = [];
     items.forEach(item => {
       if (item instanceof Organisation) { result.push(item); }
@@ -74,44 +74,36 @@ export class AppComponent implements OnInit {
     return result;
   }
 
+  hasAbschlussarbeit(person:Person):Boolean{
+    // returns whether the person is connected to an Abschlussarbeit
+    return true;
+    var connections = person.getConnectedFromItems();
+    console.log(connections) //TODO: connections ist immer leer, Personen sind nicht verbunden
+    var result = [];
+    if (connections.length >0){
+      console.log("connections length not 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: "+connections.length);
+      connections.forEach(item => {
+        if (item instanceof Content) {
+          console.log("here2");
+          if (item.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item);}
+          }})
+    };
 
+    return (result.length !=0);
+  }
 
+  getPersonsWithAbschlussarbeit():Person[]{
+    var allPersons:Person[] = this.getPersons(null);
+    var personsWithAbschlussarbeit = [];
+    allPersons.forEach(person => {
+      if (this.hasAbschlussarbeit(person)) {
+        personsWithAbschlussarbeit.push(person);
+      //console.log("personsWithAbschlussarbeit nicht leer ");
+      }
+    })
+    return personsWithAbschlussarbeit
 
-  // hasAbschlussarbeit(person:Person):Boolean{
-  //   // returns whether the person is connected to an Abschlussarbeit
-  //   console.log("person is: "+person.firstname);
-  //   var connections = person.getConnectedItems();
-  //   var result = [];
-  //   if (connections.length !=0){
-  //     console.log("connections length not 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: "+connections.length);
-  //   };
-
-  //   connections.forEach(item => {
-  //     if (item instanceof Content) {
-  //       console.log("here2");
-  //       var tags = item.getMetaTags()
-  //       tags.forEach(tag => {
-  //         if (tag.name == "Abschlussarbeit") { result.push(item); console.log("here2");}
-  //       })}})
-
-  //   return (result.length !=0);
-  // }
-
-  // getPersonsWithAbschlussarbeit():Person[]{
-  //   var allPersons:Person[] = this.getPersons(null);
-  //   console.log("getPersonsWithAbschlussarbeit "+allPersons[1].lastname);
-  //   var personsWithAbschlussarbeit = [];
-  //   if(personsWithAbschlussarbeit.length==0) console.log("personsWithAbschlussarbeit leer ");
-  //   allPersons.forEach(person => {
-  //     if (this.hasAbschlussarbeit(person)) {
-  //       personsWithAbschlussarbeit.push(person);
-  //       if(personsWithAbschlussarbeit.length!=0)console.log("personsWithAbschlussarbeit zwischenschritt "+personsWithAbschlussarbeit[0].lastname);
-  //     }
-  //   })
-  //   if(personsWithAbschlussarbeit.length!=0)console.log("personsWithAbschlussarbeit end "+personsWithAbschlussarbeit[0].lastname);
-  //   return personsWithAbschlussarbeit
-
-  // }
+  }
 
   openPopUp(): void {
     const dialogRef = this.dialog.open(PopupComponent, {
