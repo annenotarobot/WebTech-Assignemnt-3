@@ -1,8 +1,7 @@
 <div cdkDrop>
 <h1>Ankündigung Seminar- und Abschlussarbeiten</h1>
 
-<div id="filter"
-(dragover)="allowDrop($event)">
+<div id="filter">
 <h2> Filter </h2>
 <table style=width:100%>
 <tr>
@@ -40,8 +39,7 @@
 </table>
 </div>
 
-<div id="accordion"
-(dragover)="allowDrop($event)" *ngIf="!creative"> <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
+<div id="accordion" *ngIf="!creative"> <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
 <div>
   <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
   <button mat-raised-button (click)="accordion.openAll()">Expand All </button>
@@ -112,8 +110,6 @@
   <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
 </ul>-->
 
-<div id="bubbles" *ngFor="let institut of getOrganisations('institut')" style="width:100%; height:100%; position:'absolute';">
-  <div *ngIf = "valid(institut)">
-  <app-bubble [institute]="institut"></app-bubble>
-  </div>
+<div id="bubbles" *ngFor="let institut of getOrganisations('institut')" style="position:'static';">
+  <app-bubble *ngIf = "valid(institut)" [institute]="institut"></app-bubble>
 </div>
