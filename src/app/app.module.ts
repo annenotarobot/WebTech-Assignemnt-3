@@ -14,6 +14,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { BubbleComponent } from './utils/bubble/bubble.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { BubbleComponent } from './utils/bubble/bubble.component';
     BrowserModule, HttpClientModule,
     MatDialogModule, MatInputModule,
     MatButtonModule, MatCardModule, MatFormFieldModule, BrowserAnimationsModule, MatExpansionModule,
-    MatSelectModule
+    MatSelectModule, DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

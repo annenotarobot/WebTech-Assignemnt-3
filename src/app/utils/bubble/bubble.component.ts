@@ -1,5 +1,6 @@
 import { Organisation } from 'src/app/communitymashup/model/organisation.model';
 import { Component, Input, OnInit } from '@angular/core';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-bubble',
@@ -8,24 +9,25 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BubbleComponent implements OnInit {
   @Input() institute: Organisation;
-  showProfessuren: Boolean = false;
+  bubblename: string;
+  showProfessuren: boolean = false;
   professuren: Organisation[];
   instElement: HTMLElement;
   background = ["#b61827","#b4004e", "#790e8b", "#26418f", "#0086c3", "#338a3e", "#c9bc1f", "#c77800", "#c63f17", "#5f4339", "#8d8d8d", "#4b636e", "#005005", "#38006b", "#001064", "#b53d00", "#1b1b1b"][Math.floor(Math.random()*16.9)];
   background_lighter:string;
-  left = (Math.floor(Math.random()*70.5)+15).toString().concat("%");
-  top = (Math.floor(Math.random()*80.5)+10).toString().concat("%");
+  left = (Math.floor(Math.random()*50.5)+25).toString().concat("%");
+  top = (Math.floor(Math.random()*50.5)+25).toString().concat("%");
   constructor() {
   }
 
   ngOnInit(): void {
     this.professuren = this.institute.getChildOrganisations();
     this.background_lighter = this.lightenDarkenColor(this.background, 130);
+    this.bubblename = this.institute.name.concat("bubble");
   }
 
   getProfessurStyle(professur:Organisation): string{
     const idx = this.professuren.indexOf(professur);
-    console.log(document.getElementById(this.institute.name).offsetWidth*0.25, document.getElementById(this.institute.name).offsetLeft, document.getElementById(this.institute.name).offsetTop);
     const radius = 125;
     var center_x = document.getElementById(this.institute.name).offsetLeft+radius;
     var center_y = document.getElementById(this.institute.name).offsetTop+radius;
@@ -35,13 +37,13 @@ export class BubbleComponent implements OnInit {
     var prof_top = center_y + bigger_radius*Math.sin(2*Math.PI*angle)-90;
 
     var res = "background-color: ".concat(this.background_lighter, "; left:", prof_left.toString(), "px; top:", prof_top.toString(), "px;");
-    console.log(res);
     return res;
   }
 
   toggleArbeitsthema(professur:Organisation):void{
 
   }
+
 
   toggleProfessuren():void{
     this.showProfessuren = !this.showProfessuren;
@@ -66,6 +68,23 @@ export class BubbleComponent implements OnInit {
     if ( g > 255 ) g = 255;
     else if  ( g < 0 ) g = 0;
     return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
-}
+  }
+
+  // for differentiating clicking and dragging as well as dragging between different
+  mousePosition = {
+    x: 0,
+    y: 0
+  };
+
+  mouseDown($event) {
+    this.mousePosition.x = $event.screenX;
+    this.mousePosition.y = $event.screenY;
+  }
+
+  onClick($event) {
+    if (this.mousePosition.x === $event.screenX && this.mousePosition.y === $event.screenY) {
+      this.toggleProfessuren()
+    }
+  }
 
 }

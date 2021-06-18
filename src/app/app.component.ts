@@ -9,6 +9,7 @@ import { Person } from 'src/app/communitymashup/model/person.model';
 import { Organisation } from 'src/app/communitymashup/model/organisation.model';
 import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.service';
 import { MatDialog } from '@angular/material/dialog';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   title = 'inforadiator-theses';
   filterPerson: Person = null;
   filterTag: Tag = null;
-  creative: boolean = false;
+  creative: boolean = true;
 
   constructor(public communitymashup: CommunityMashupService, public dialog: MatDialog) {
   }
@@ -106,7 +107,6 @@ export class AppComponent implements OnInit {
       })
     }
     return personsWithAbschlussarbeit
-
   }
 
   openPopUp(): void {
@@ -119,5 +119,14 @@ export class AppComponent implements OnInit {
   valid(org: Organisation):boolean{
     return this.creative && (org!=undefined)
   }
+allowDrop(ev) {console.log("allowdrop")
+  ev.preventDefault();
+}
+drop(ev, id) {
+  console.log("drop")
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData(id);
+  ev.target.appendChild(document.getElementById(data));
+}
 
 }
