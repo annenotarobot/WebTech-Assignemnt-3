@@ -18,7 +18,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'inforadiator-theses';
+  title = 'abschlussarbeiten-app';
   filterPerson: Person = null;
   filterTag: Tag = null;
   creative: boolean = true;
