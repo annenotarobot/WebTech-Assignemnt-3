@@ -24,12 +24,13 @@ h1 {
   font-size: 2.5em;
   font-family: sans-serif;
   color: rgb(65, 65, 65);
-  text-align: center;
+  margin-bottom: 10px;
   }
 h2 {
-  font-size: 1.8em;
+  font-size: 1.5em;
   font-family: sans-serif;
   color: rgb(65, 65, 65);
+  margin-bottom: 5px;
 }
 h3 {
   font-size: 1.3em;
@@ -43,6 +44,8 @@ h4 {
   color: rgb(65, 65, 65);
 }
 p{
+  margin-top: 5px;
+  margin-bottom: 5px;
   font-family: sans-serif;
   font-size: 1em;
   color: rgb(65, 65, 65);

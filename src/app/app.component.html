@@ -1,8 +1,10 @@
 <div cdkDrop>
-<h1>Ankündigung Seminar- und Abschlussarbeiten</h1>
-
+<h1>Übersicht studentische Arbeitsthemen</h1>
+<p>Für alle Studierenden, die an der Fakultät für Informatik eine studentische Arbeit (Praktikum, Semester-, Bachelor-, Masterarbeit) suchen.
+<br>
 <div id="filter">
 <h2> Filter </h2>
+<p> Wähle hier Optionen aus, um die Anzeige für Seminar- und Abschlussarbeiten einzuschränken </p>
 <table style=width:100%>
 <tr>
 <th>
@@ -39,7 +41,8 @@
 </table>
 </div>
 
-
+<br>
+<h2> Ergebnisse </h2>
 <div *ngIf = "!creative" id="accordion">
 <div>
   <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
