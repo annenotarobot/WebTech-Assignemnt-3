@@ -43,18 +43,9 @@ export class AppComponent implements OnInit {
   }
   getOrganisations(metaTag) {
     var orgs = this.communitymashup.getOrganisations(metaTag);
-    var results = [];
-    // if (metaTag == 'institut' && orgs!=null){
-    //   orgs.forEach(org => {
-    //     var conItems = org.getConnectedFromItems()
-    //     if (conItems.length >0){
-    //       if (conItems.filter(con => con.getMetaTagsAsString().includes("Abschlussarbeit")).length>0){
-    //       results.push(org)
-    //       }
-    //     };
-    //   });
-    //   return results;
-    // }
+    if (metaTag == 'institut' && orgs!=null){
+      return this.filterOrganisations(orgs);
+    }
     return orgs;
   }
 
@@ -78,17 +69,17 @@ export class AppComponent implements OnInit {
   }
 
   /*
-  param: Organisation: professur or institute
-  returns Abschlussarbeiten
+  param: Organisation: normally professur or institute
+  returns Abschlussarbeiten connected to the organisation
   */
-  getConnectedAbschlussarbeiten(orga:Organisation): Content[] {
+  getConnectedAbschlussarbeiten(orga:Organisation):Content[]{
     var items = orga.getConnectedFromItems();
     var result = [];
     if (items != undefined) {
-      items.forEach(organization => {
-        if (organization instanceof Content) { 
-          if (this.itemConnectedToAbschlussarbeit(organization)) {
-           result.push(organization);
+      items.forEach(item => {
+        if (item instanceof Content) { 
+          if (this.itemConnectedToAbschlussarbeit(item) && this.itemConnectedToFilterPerson) {
+           result.push(item);
           }
         } 
       } );
@@ -97,21 +88,63 @@ export class AppComponent implements OnInit {
   }
 
   itemConnectedToAbschlussarbeit(item:Item):Boolean{
-    // returns whether the person is connected to an Abschlussarbeit
-    return true;
+    // returns whether the Item (person, organisation, etc) is connected to at leats one Abschlussarbeit
     var connections = item.getConnectedFromItems();
-    console.log(connections) //TODO: connections ist immer leer, Personen sind nicht verbunden
     var result = [];
-    if (connections.length >0){
-      console.log("connections length not 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: "+connections.length);
+    if (connections != undefined && connections.length >0){
       connections.forEach(item0 => {
         if (item0 instanceof Content) {
-          console.log("here2");
           if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
           }})
     };
-
     return (result.length !=0);
+  }
+
+  /*
+  TBD
+  */
+  itemConnectedToFilterPerson(item:Item):Boolean{
+    return true;
+    if(this.filterPerson == null) return true;
+    var connections = item.getConnectedFromItems();
+    var result = [];
+    if (connections.length >0){
+      connections.forEach(item0 => {
+        if (item0 instanceof Content) {
+          if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
+          }})
+    };
+    return (result.length !=0);
+  }
+
+
+  /*
+  not metaTag but Tag
+  itemHasTag
+  */
+
+  /*
+  uses recursion to check if current organisation is connected to Abschlussarbeit, then checks if chidOrganisations are conncected to abschlussarbeit
+  param: organisations
+  returns: organisations filtered so that only organisations connected to Abschlussarbeiten remain
+  */
+  filterOrganisations(organisations: Organisation[]):Organisation[]{
+    var orgas = organisations;
+    var results = [];
+    var childOrgas = [];
+    orgas.forEach(org => {
+      if(this.itemConnectedToAbschlussarbeit(org) && this.itemConnectedToFilterPerson(org)){
+              results.push(org)
+      } else {
+        childOrgas = org.getChildOrganisations();
+          if(childOrgas != null){  
+            if(this.filterOrganisations(childOrgas).length > 0){
+            results.push(org)
+            }
+          }
+        }
+    }); 
+    return results;
   }
 
   getPersonsWithAbschlussarbeit():Person[]{
@@ -121,7 +154,6 @@ export class AppComponent implements OnInit {
       allPersons.forEach(person => {
         if (this.itemConnectedToAbschlussarbeit(person)) {
           personsWithAbschlussarbeit.push(person);
-          //console.log("personsWithAbschlussarbeit nicht leer ");
         }
       })
     }
@@ -149,3 +181,5 @@ drop(ev, id) {
 }
 
 }
+
+
