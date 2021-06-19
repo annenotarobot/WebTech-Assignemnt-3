@@ -39,50 +39,52 @@
 </table>
 </div>
 
-<div id="accordion" *ngIf="!creative"> <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
+
+<div *ngIf = "!creative" id="accordion">
 <div>
   <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
   <button mat-raised-button (click)="accordion.openAll()">Expand All </button>
   <button mat-raised-button (click)="accordion.closeAll()">Collapse All </button>
 </div>
+
+  <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
   <mat-accordion multi="true" #accordion="matAccordion">
     <!-- Institute -->
-      <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let institut of getOrganisations('institut')" #expansionPanel="matExpansionPanel">
-        <mat-expansion-panel-header>
-          <mat-panel-title class="organisation-expansion-panel-text">
-            {{institut.name}}
-          </mat-panel-title>
-          <mat-panel-description class="organisation-expansion-panel-text">
-            Arbeiten aus dem Institut {{institut.name}}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <!-- SubInstitute -->
-        <mat-expansion-panel class="child-organisation-expansion-panel" *ngFor="let corganisation of institut.getChildOrganisations()">
-          <mat-expansion-panel-header>
-            <mat-panel-title class="child-organisation-expansion-panel-text">
-              {{corganisation.name}}
-            </mat-panel-title>
-            <mat-panel-description class="child-organisation-expansion-panel-text">
-              Arbeiten aus dem Sub-Institut {{corganisation.name}}
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <!-- Members -->
-          <mat-expansion-panel class="members-expansion-panel" *ngFor="let member of corganisation.getMembers()"> <!-- WARUM WIRD DAS NICHT ANGEZEIGT??-->
+    <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let institut of getOrganisations('institut')"
+                         #expansionPanel="matExpansionPanel">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="organisation-expansion-panel-text">
+          {{institut.name}}
+        </mat-panel-title>
+        <mat-panel-description class="organisation-expansion-panel-text">
+          Arbeiten aus dem Institut {{institut.name}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngFor="let content of getContents('Abschlussarbeit')">
+        <div class="content-div"
+          *ngFor="let orga of getConnectedOrganisations(content)">
+          <mat-expansion-panel *ngIf="orga.name == institut.name">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                {{member.alternativeNames}}
+                {{content.alternativeNames}}
               </mat-panel-title>
-              <mat-panel-description>
-                Arbeiten von {{member.alternativeNames}}
-              </mat-panel-description>
             </mat-expansion-panel-header>
-            abc
+            {{content.stringValue}}<br>
+            <img width="auto" src="{{content.getImages()[0]['fileUrl']}}">
           </mat-expansion-panel>
-        </mat-expansion-panel>
-      </mat-expansion-panel>
+        </div>
+      </div>
+    </mat-expansion-panel>
   </mat-accordion>
 </div>
 <!--
+
+<div>
+  <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
+  <button mat-raised-button (click)="accordion.openAll()">Expand All</button>
+  <button mat-raised-button (click)="accordion.closeAll()">Collapse All</button>
+</div>
+<h2>Filter</h2>
 <p>Contents:</p>
 <ul>
   <li *ngFor="let content of getContents('Abschlussarbeit')">{{content.name}}<br/>
