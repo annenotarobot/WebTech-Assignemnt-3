@@ -13,12 +13,14 @@
   <th>
   <mat-form-field>
     <mat-label>Betreuer wählen</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person">
-        {{person.lastname}}
+    <mat-select [(value)]="filterPerson">
+      <mat-option>Keine Auswahl</mat-option>
+      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person">  
+        {{person.lastname}} 
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <p *ngIf="filterPerson != null">You selected: {{filterPerson.lastname}}</p>
   </th>
 </tr>
 <tr>

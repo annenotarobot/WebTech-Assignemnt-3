@@ -87,8 +87,10 @@ export class AppComponent implements OnInit {
     return result;
   }
 
+  /*
+  returns true if item (organisation or Person or...) is connected to a content object with the metaTag Abschlussarbeit
+  */
   itemConnectedToAbschlussarbeit(item:Item):Boolean{
-    // returns whether the Item (person, organisation, etc) is connected to at leats one Abschlussarbeit
     var connections = item.getConnectedFromItems();
     var result = [];
     if (connections != undefined && connections.length >0){
@@ -101,10 +103,11 @@ export class AppComponent implements OnInit {
   }
 
   /*
-  TBD
+  TODO: check if when filtered person has been selected then "keine Auswahl" is selected again if filterPerson value is null again
+  
+  returns true if item (organisation or Person or...) is connected to the selected filterPerson 
   */
   itemConnectedToFilterPerson(item:Item):Boolean{
-    return true;
     if(this.filterPerson == null) return true;
     var connections = item.getConnectedFromItems();
     var result = [];
@@ -119,9 +122,23 @@ export class AppComponent implements OnInit {
 
 
   /*
+  TBD when Datenmodell ready
   not metaTag but Tag
   itemHasTag
   */
+  itemConnectedToFilterTag(item:Item):Boolean{
+    return true;
+    // if(this.filterTag == null) return true;
+    // var connections = item.getConnectedFromItems();
+    // var result = [];
+    // if (connections.length >0){
+    //   connections.forEach(item0 => {
+    //     if (item0 instanceof Content) {
+    //       if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
+    //       }})
+    // };
+    // return (result.length !=0);
+  }
 
   /*
   uses recursion to check if current organisation is connected to Abschlussarbeit, then checks if chidOrganisations are conncected to abschlussarbeit
