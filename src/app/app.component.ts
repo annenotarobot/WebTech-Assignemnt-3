@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   title = 'abschlussarbeiten-app';
   filterPerson: Person = null;
   filterTag: Tag = null;
-  creative: boolean = true;
+  creative: boolean = false;
 
   constructor(public communitymashup: CommunityMashupService, public dialog: MatDialog) {
   }
@@ -77,18 +77,37 @@ export class AppComponent implements OnInit {
     return result;
   }
 
-  hasAbschlussarbeit(person:Person):Boolean{
+  /*
+  param: Organisation: professur or institute
+  returns Abschlussarbeiten
+  */
+  getConnectedAbschlussarbeiten(orga:Organisation): Content[] {
+    var items = orga.getConnectedFromItems();
+    var result = [];
+    if (items != undefined) {
+      items.forEach(organization => {
+        if (organization instanceof Content) { 
+          if (this.itemConnectedToAbschlussarbeit(organization)) {
+           result.push(organization);
+          }
+        } 
+      } );
+    }
+    return result;
+  }
+
+  itemConnectedToAbschlussarbeit(item:Item):Boolean{
     // returns whether the person is connected to an Abschlussarbeit
     return true;
-    var connections = person.getConnectedFromItems();
+    var connections = item.getConnectedFromItems();
     console.log(connections) //TODO: connections ist immer leer, Personen sind nicht verbunden
     var result = [];
     if (connections.length >0){
       console.log("connections length not 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: "+connections.length);
-      connections.forEach(item => {
-        if (item instanceof Content) {
+      connections.forEach(item0 => {
+        if (item0 instanceof Content) {
           console.log("here2");
-          if (item.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item);}
+          if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
           }})
     };
 
@@ -100,7 +119,7 @@ export class AppComponent implements OnInit {
     var personsWithAbschlussarbeit = [];
     if (allPersons != undefined){
       allPersons.forEach(person => {
-        if (this.hasAbschlussarbeit(person)) {
+        if (this.itemConnectedToAbschlussarbeit(person)) {
           personsWithAbschlussarbeit.push(person);
           //console.log("personsWithAbschlussarbeit nicht leer ");
         }
