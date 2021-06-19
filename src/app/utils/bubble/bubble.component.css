@@ -45,6 +45,7 @@
 }
 .brighten{
   filter:brightness(150%);
+  z-index: 100;
 }
 .paused{
   -webkit-animation-play-state: paused;

@@ -111,7 +111,8 @@
 <ul>
   <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
 </ul>-->
-
+<div *ngIf="creative" style="height:800px">
 <div id="bubbles" *ngFor="let institut of getOrganisations('institut')" style="position:'static';">
   <app-bubble *ngIf = "valid(institut)" [institute]="institut"></app-bubble>
+</div>
 </div>

@@ -16,7 +16,7 @@ export class BubbleComponent implements OnInit {
   background = ["#b61827","#b4004e", "#790e8b", "#26418f", "#0086c3", "#338a3e", "#c9bc1f", "#c77800", "#c63f17", "#5f4339", "#8d8d8d", "#4b636e", "#005005", "#38006b", "#001064", "#b53d00", "#1b1b1b"][Math.floor(Math.random()*16.9)];
   background_lighter:string;
   left = (Math.floor(Math.random()*50.5)+25).toString().concat("%");
-  top = (Math.floor(Math.random()*50.5)+25).toString().concat("%");
+  top = (Math.floor(Math.random()*900)-250).toString().concat("px");
   constructor() {
   }
 
