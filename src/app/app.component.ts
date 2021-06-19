@@ -129,20 +129,21 @@ export class AppComponent implements OnInit {
   returns: organisations filtered so that only organisations connected to Abschlussarbeiten remain
   */
   filterOrganisations(organisations: Organisation[]):Organisation[]{
-    var results : Organisation[];
-    var childOrgas : Organisation[];
-    if (organisations!=null){
-      organisations.forEach(org => {
-        if(this.itemConnectedToAbschlussarbeit(org) && this.itemConnectedToFilterPerson(org)){
-          results.push(org)
-        } else {
+    var orgas = organisations;
+    var results = [];
+    var childOrgas = [];
+    orgas.forEach(org => {
+      if(this.itemConnectedToAbschlussarbeit(org) && this.itemConnectedToFilterPerson(org)){
+              results.push(org)
+      } else {
         childOrgas = org.getChildOrganisations();
-        if(childOrgas != null && !(this.filterOrganisations(childOrgas) == undefined)){
-          results.push(org)
-              }
+          if(childOrgas != null){  
+            if(this.filterOrganisations(childOrgas).length > 0){
+            results.push(org)
+            }
+          }
         }
-      });
-    }
+    }); 
     return results;
   }
 
