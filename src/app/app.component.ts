@@ -97,8 +97,7 @@ export class AppComponent implements OnInit {
   }
 
   itemConnectedToAbschlussarbeit(item:Item):Boolean{
-    // returns whether the person is connected to an Abschlussarbeit
-    return true;
+    // returns whether the Item (person, organisation, etc) is connected to an Abschlussarbeit
     var connections = item.getConnectedFromItems();
     console.log(connections) //TODO: connections ist immer leer, Personen sind nicht verbunden
     var result = [];
