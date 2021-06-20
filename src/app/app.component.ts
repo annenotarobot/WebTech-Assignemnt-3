@@ -152,15 +152,17 @@ export class AppComponent implements OnInit {
   */
   itemConnectedToFilterPerson(item:Item):Boolean{
     if(this.filterPerson == null) return true;
-    var connections = item.getConnectedFromItems();
-    var result = [];
-    if (connections.length >0){
-      connections.forEach(item0 => {
-        if (item0 instanceof Content) {
-          if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
-          }})
-    };
-    return (result.length !=0);
+    var connectedItems = item.getConnectedFromItems();
+    if (connectedItems != undefined && connectedItems.length >0){
+      connectedItems.forEach(person => {
+        if (person instanceof Person) {
+          if (person === this.filterPerson) { 
+            return true;
+          }
+        }
+      });
+    }
+   return false;
   }
 
 
@@ -176,9 +178,8 @@ export class AppComponent implements OnInit {
     // var result = [];
     // if (connections.length >0){
     //   connections.forEach(item0 => {
-    //     if (item0 instanceof Content) {
     //       if (item0.getTagsAsString().includes(filterTag.toString())) { result.push(item0);}
-    //       }})
+    //       })
     // };
     // return (result.length !=0);
   }
@@ -195,7 +196,11 @@ export class AppComponent implements OnInit {
     orgas.forEach(org => {
       if(this.itemConnectedToAbschlussarbeit(org) && this.itemConnectedToFilterPerson(org) &&this.itemConnectedToFilterTag(org)){
               results.push(org)
-      } else {
+      } else
+      // if(this.getConnectedAbschlussarbeiten(org).length>0){
+      //   results.push(org)
+      // }else 
+      {
         childOrgas = org.getChildOrganisations();
           if(childOrgas != null){  
             if(this.filterOrganisations(childOrgas).length > 0){
@@ -245,9 +250,9 @@ printToConsole(s:string):void{
 }
 
 updateDiv(): void{ 
-    $( "#here" ).load(window.location.href + " #here" );
+    $( "accordion" ).load(window.location.href + " accordion" );
     console.log("console log: RELOADED ELEMENTS")
-}
+  }
 }
 
 
