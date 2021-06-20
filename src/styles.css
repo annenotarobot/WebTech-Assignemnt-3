@@ -82,14 +82,21 @@ img {
   font-size: 1em;
   color: white;
   background-color: #222222;
-  margin: 8px 8px 8px 0;
+  margin: 8px 8px 8px 8px;
 }
 .mat-stroked-button{
   font-family: sans-serif;
   font-size: 1em;
   color: #222222;
   background-color: white;
-  margin: 8px 8px 8px 0;
+  margin: 8px 8px 8px 8px;
+}
+.mat-button-toggle{
+  font-family: sans-serif;
+  font-size: 1em;
+  color: #222222;
+  background-color: white;
+  margin: 8px 8px 8px 8px;
 }
 .mat-fab{
   font-family: sans-serif;

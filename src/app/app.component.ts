@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import * as $ from 'jquery';
 import { isDeepStrictEqual } from 'util';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit {
   title = 'abschlussarbeiten-app';
   filterPerson: Person = null;
   filterTag: Tag = null;
-  creative: boolean = true;
+  creative: boolean = false;
 
   constructor(public communitymashup: CommunityMashupService) {
   }
@@ -266,6 +267,9 @@ updateDiv(): void{
     $( "accordion" ).load(window.location.href + " accordion" );
     console.log("console log: RELOADED ELEMENTS")
   }
+toggleCreative():void{
+  this.creative = !this.creative;
+}
 }
 
 
