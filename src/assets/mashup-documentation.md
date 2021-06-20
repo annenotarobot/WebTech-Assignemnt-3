@@ -18,7 +18,11 @@ added items with ident 66666*
 1 connection of professor to abschlussarbeit
 1 connection of professor to institut
 
-1professur
+1 institut
 1 abshclussarbeit
 1 conenction zwischen die zwei
+
+1 institut
+3 dazugehörige professuren
+3 abshclussarbeiten die jeweil einer der professurern gehören
 
