@@ -15,7 +15,7 @@
     <mat-label>Betreuer wählen</mat-label>
     <mat-select [(value)]="filterPerson">
       <mat-option>Keine Auswahl</mat-option>
-      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person">  
+      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person" (click)="printToConsole(filterPerson.lastname)"(click)="updateDiv()">  
         {{person.lastname}} 
       </mat-option>
     </mat-select>
@@ -53,7 +53,7 @@
 </div>
 
   <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
-  <mat-accordion multi="true" #accordion="matAccordion">
+  <mat-accordion id="#here" multi="true" #accordion="matAccordion">
     <!-- Institute -->
     <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let institut of getOrganisations('institut')"
                          #expansionPanel="matExpansionPanel">
@@ -121,3 +121,38 @@
   <app-bubble *ngIf = "valid(institut)" [institute]="institut"></app-bubble>
 </div>
 </div>
+
+
+<br><br>
+<div *ngIf = "!creative" id="accordion">  
+    <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
+    <mat-accordion id="#here" multi="true" #accordion="matAccordion">
+      <!-- Institute -->
+      <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let institut of getOrganisations('institut')"
+                           #expansionPanel="matExpansionPanel">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="organisation-expansion-panel-text">
+            {{institut.name}}
+          </mat-panel-title>
+          <mat-panel-description class="organisation-expansion-panel-text">
+            Arbeiten aus dem Institut {{institut.name}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <div class="content-div">
+            <mat-expansion-panel *ngFor="let professur of getProfessurenChildOrganisations(institut)">              
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{professur.name}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div *ngFor="let content of getConnectedAbschlussarbeiten(professur)">
+              {{content.stringValue}}<br>
+              <img width="auto" src="{{content.getImages()[0]['fileUrl']}}">
+              </div>
+            </mat-expansion-panel>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>

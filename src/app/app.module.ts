@@ -15,6 +15,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { BubbleComponent } from './utils/bubble/bubble.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import * as $ from 'jquery';  
+
 
 @NgModule({
   declarations: [

@@ -10,6 +10,8 @@ import { Organisation } from 'src/app/communitymashup/model/organisation.model';
 import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import * as $ from 'jquery';  
+
 
 
 @Component({
@@ -68,6 +70,33 @@ export class AppComponent implements OnInit {
     return result;
   }
 
+  organisationIsInstitut(orga:Organisation):boolean{
+    if(orga.getMetaTagsAsString().includes("institut")){
+      return true;
+    }
+    return false
+  }
+
+  organisationIsProfessur(orga:Organisation):boolean{
+    if(orga.getMetaTagsAsString().includes("professur")) {
+      return true;
+    }
+    return false
+  }
+
+  getProfessurenChildOrganisations(parentOrga:Organisation): Organisation[] {
+    var orga = parentOrga;
+    var professuren = [];
+    var results = [];
+    var childOrgas = [];
+    childOrgas = orga.getChildOrganisations();
+    childOrgas.forEach(org => {
+          if (this.organisationIsProfessur(orga) || true) { professuren.push(org);} //fix mistake when filtering for professuren only
+          });    
+    results = this.filterOrganisations(professuren);
+    return results;
+  }
+
   /*
   param: Organisation: normally professur or institute
   returns Abschlussarbeiten connected to the organisation
@@ -75,16 +104,30 @@ export class AppComponent implements OnInit {
   getConnectedAbschlussarbeiten(orga:Organisation):Content[]{
     var items = orga.getConnectedFromItems();
     var result = [];
-    if (items != undefined) {
-      items.forEach(item => {
-        if (item instanceof Content) { 
-          if (this.itemConnectedToAbschlussarbeit(item) && this.itemConnectedToFilterPerson) {
-           result.push(item);
-          }
-        } 
-      } );
+    if(this.organisationIsInstitut(orga)){
+      if (items != undefined) {
+        items.forEach(item => {
+          if (item instanceof Content) { 
+            if (this.itemConnectedToFilterPerson && this.itemConnectedToFilterTag) {
+            result.push(item);
+            }
+          } 
+        } );
+      }
+      return result;
     }
-    return result;
+    if(this.organisationIsProfessur(orga)){
+      if (items != undefined) {
+        items.forEach(item => {
+          if (item instanceof Content) { 
+            if (this.itemConnectedToFilterPerson && this.itemConnectedToFilterTag) {
+            result.push(item);
+            }
+          } 
+        } );
+      }
+      return result;
+    }
   }
 
   /*
@@ -97,8 +140,8 @@ export class AppComponent implements OnInit {
       connections.forEach(item0 => {
         if (item0 instanceof Content) {
           if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
-          }})
-    };
+          }});
+    }
     return (result.length !=0);
   }
 
@@ -134,7 +177,7 @@ export class AppComponent implements OnInit {
     // if (connections.length >0){
     //   connections.forEach(item0 => {
     //     if (item0 instanceof Content) {
-    //       if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
+    //       if (item0.getTagsAsString().includes(filterTag.toString())) { result.push(item0);}
     //       }})
     // };
     // return (result.length !=0);
@@ -150,7 +193,7 @@ export class AppComponent implements OnInit {
     var results = [];
     var childOrgas = [];
     orgas.forEach(org => {
-      if(this.itemConnectedToAbschlussarbeit(org) && this.itemConnectedToFilterPerson(org)){
+      if(this.itemConnectedToAbschlussarbeit(org) && this.itemConnectedToFilterPerson(org) &&this.itemConnectedToFilterTag(org)){
               results.push(org)
       } else {
         childOrgas = org.getChildOrganisations();
@@ -197,6 +240,14 @@ drop(ev, id) {
   ev.target.appendChild(document.getElementById(data));
 }
 
+printToConsole(s:string):void{
+  console.log("console log: "+s)
+}
+
+updateDiv(): void{ 
+    $( "#here" ).load(window.location.href + " #here" );
+    console.log("console log: RELOADED ELEMENTS")
+}
 }
 
 
