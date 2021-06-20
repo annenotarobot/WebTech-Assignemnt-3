@@ -105,9 +105,27 @@ img {
 }
 .organisation-expansion-panel {
   background-color: lightgrey;
+  font-family: sans-serif;
+  font-size: 1em;
 }
-
+/* .organisation-expansion-panel-body{
+  background-color: lightgrey;
+  font-family: sans-serif;
+  font-size: 0.6em;
+}
+.mat-expansion-panel-header{
+  background-color: lightgrey;
+  font-family: sans-serif;
+  font-size: 0.8em;
+}
 .content-div{
   max-width:100%;
   max-height:100%;
+  font-family: sans-serif;
+  font-size: 1em;
 }
+.mat-panel-title{
+  background-color: lightgrey;
+  font-family: sans-serif;
+  font-size: 0.8em;
+} */
