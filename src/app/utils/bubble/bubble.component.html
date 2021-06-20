@@ -17,18 +17,14 @@
       style= {{getProfessurStyle(professur)}} (click)="toggleArbeitsthemen(professur)">
       {{professur.name}}
       </button>
-      <div *ngIf = "getshowArbeitsthemen(professur)">
-        <ul class="arbeiten"
-        style = {{getContentStyle(professur)}}
-        *ngFor="let topic of getConnectedAbschlussarbeiten(professur)">
-        <tr>
-        <th>
-          <button class="listbutton" (click) = "openPopUp(getConnectedAbschlussarbeiten(professur), topic)">
+      <div *ngIf = "getshowArbeitsthemen(professur)" class="arbeiten" style = {{getContentStyle(professur)}}>
+        <mat-action-list>
+        <div mat-list-item *ngFor="let topic of getConnectedAbschlussarbeiten(professur)" style="height: 2em; z-index: 100;">
+          <button mat-stroked-button style="background-color:{{this.lightenDarkenColor(this.background_lighter, 110)}}; border-color:{{this.background_lighter}}" class="listbutton" (click) = "openPopUp(getConnectedAbschlussarbeiten(professur), topic)" >
             {{topic.name}}
-          </button>
-        </th>
-        </tr>
-        </ul>
+          </button><br>
+        </div>
+        </mat-action-list>
       </div>
     </div>
   </div>

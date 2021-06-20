@@ -126,6 +126,7 @@ export class AppComponent implements OnInit {
           }
         } );
       }
+      console.log(result)
       return result;
     }
   }

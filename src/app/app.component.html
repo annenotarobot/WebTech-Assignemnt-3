@@ -117,7 +117,7 @@
 </ul>-->
 <div *ngIf="creative" style="height:800px">
 <div id="bubbles" *ngFor="let institut of this.getOrganisations('institut')" style="position:'static';">
-  <app-bubble *ngIf = "valid(institut)" [institute]="institut" [filterPerson]="filterPerson" [filterTag]="filterTag" [filterOrganisations]="filterOrganisations" [getConnectedAbschlussarbeiten]="getConnectedAbschlussarbeiten" [itemConnectedToAbschlussarbeit]="itemConnectedToAbschlussarbeit" [itemConnectedToFilterPerson]="itemConnectedToFilterPerson"></app-bubble>
+  <app-bubble *ngIf = "valid(institut)" [institute]="institut" [filterPerson]="filterPerson" [filterTag]="filterTag" [filterOrganisations]="filterOrganisations" [getConnectedAbschlussarbeiten]="getConnectedAbschlussarbeiten" [itemConnectedToAbschlussarbeit]="itemConnectedToAbschlussarbeit" [itemConnectedToFilterPerson]="itemConnectedToFilterPerson" [itemConnectedToFilterTag]="itemConnectedToFilterTag" [organisationIsProfessur]="organisationIsProfessur" [organisationIsInstitut]="organisationIsInstitut"></app-bubble>
 </div>
 </div>
 

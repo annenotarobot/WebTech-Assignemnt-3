@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.service';
 import { PopupComponent } from '../popup/popup.component';
 import { Content } from 'src/app/communitymashup/model/content.model';
+import { Item } from 'src/app/communitymashup/model/item.model';
 
 @Component({
   selector: 'app-bubble',
@@ -21,6 +22,9 @@ export class BubbleComponent implements OnChanges {
   @Input() getConnectedAbschlussarbeiten: (orga:Organisation) => Content[];
   @Input() itemConnectedToAbschlussarbeit: (org: Organisation) => boolean;
   @Input() itemConnectedToFilterPerson: (org:Organisation) => boolean;
+  @Input() itemConnectedToFilterTag: (item:Item) => boolean;
+  @Input() organisationIsInstitut: (org: Organisation) => boolean;
+  @Input() organisationIsProfessur: (org:Organisation)=> boolean;
   bubblename: string;
   showProfessuren: boolean = false;
   professuren: Organisation[];
@@ -59,11 +63,11 @@ export class BubbleComponent implements OnChanges {
   }
 
   getContentStyle(professur:Organisation): string {
-    var top = document.getElementById(professur.name).offsetTop+180;
-    var left = document.getElementById(professur.name).offsetTop+180;
-    var bordercolor = this.background_lighter;
+    var top = document.getElementById(professur.name).offsetTop+160;
+    var left = document.getElementById(professur.name).offsetLeft+160;
+    var bordercolor = this.lightenDarkenColor(this.background_lighter, 120);
 
-    var res = "border-color: ".concat(bordercolor, "; left:", left.toString(), "px; top:", top.toString(), "px;");
+    var res = "border-color: ".concat(bordercolor, "; left:", left.toString(), "px; top:", top.toString(), "px; height: fit-content;");
     return res;
   }
 
@@ -83,6 +87,7 @@ export class BubbleComponent implements OnChanges {
     this.showProfessuren = !this.showProfessuren;
     document.getElementById(this.institute.name).classList.toggle("paused");
     document.getElementById(this.institute.name).classList.toggle("brighten")
+    this.showArbeitsthemen = new Array(this.professuren.length).fill(false);
   }
 
   openPopUp(allTopics:Content[], topic:Content): void {
