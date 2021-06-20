@@ -97,7 +97,8 @@ export class BubbleComponent implements OnChanges {
         abschlussarbeit: topic,
         all: allTopics
       },
-      width: "70%"
+      width: "70%",
+      height: "90%"
     });
   }
 
