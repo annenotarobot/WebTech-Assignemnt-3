@@ -1,14 +1,26 @@
-import { Organisation } from 'src/app/communitymashup/model/organisation.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Organisation } from './../../communitymashup/model/organisation.model';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Person } from 'src/app/communitymashup/model/person.model';
+import { Tag } from 'src/app/communitymashup/model/tag.model';
+import { MatDialog } from '@angular/material/dialog';
+import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.service';
+import { PopupComponent } from '../popup/popup.component';
+import { Content } from 'src/app/communitymashup/model/content.model';
 
 @Component({
   selector: 'app-bubble',
   templateUrl: './bubble.component.html',
   styleUrls: ['./bubble.component.css'],
 })
-export class BubbleComponent implements OnInit {
+export class BubbleComponent implements OnChanges {
   @Input() institute: Organisation;
+  @Input() filterPerson: Person;
+  @Input() filterTag: Tag;
+  @Input() filterOrganisations: (organisations: Organisation[]) => Organisation[];
+  @Input() getConnectedAbschlussarbeiten: (orga:Organisation) => Content[];
+  @Input() itemConnectedToAbschlussarbeit: (org: Organisation) => boolean;
+  @Input() itemConnectedToFilterPerson: (org:Organisation) => boolean;
   bubblename: string;
   showProfessuren: boolean = false;
   professuren: Organisation[];
@@ -17,13 +29,19 @@ export class BubbleComponent implements OnInit {
   background_lighter:string;
   left = (Math.floor(Math.random()*50.5)+25).toString().concat("%");
   top = (Math.floor(Math.random()*900)-250).toString().concat("px");
-  constructor() {
+  showArbeitsthemen: boolean[];
+  constructor(public communitymashup: CommunityMashupService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.professuren = this.institute.getChildOrganisations();
+    this.professuren = this.filterOrganisations(this.institute.getChildOrganisations());
     this.background_lighter = this.lightenDarkenColor(this.background, 130);
     this.bubblename = this.institute.name.concat("bubble");
+    this.showArbeitsthemen = new Array(this.professuren.length).fill(false);
+  }
+  ngOnChanges(changes:SimpleChanges):void {
+    this.filterPerson = changes.filterPerson.currentValue;
+    this.filterTag = changes.filterTag.currentValue;
   }
 
   getProfessurStyle(professur:Organisation): string{
@@ -40,8 +58,24 @@ export class BubbleComponent implements OnInit {
     return res;
   }
 
-  toggleArbeitsthema(professur:Organisation):void{
+  getContentStyle(professur:Organisation): string {
+    var top = document.getElementById(professur.name).offsetTop+180;
+    var left = document.getElementById(professur.name).offsetTop+180;
+    var bordercolor = this.background_lighter;
 
+    var res = "border-color: ".concat(bordercolor, "; left:", left.toString(), "px; top:", top.toString(), "px;");
+    return res;
+  }
+
+  toggleArbeitsthemen(professur:Organisation):void{
+    var idx = this.professuren.indexOf(professur);
+    this.showArbeitsthemen[idx]=!this.showArbeitsthemen[idx];
+    document.getElementById(professur.name).classList.toggle("brightensubbubble")
+  }
+
+  getshowArbeitsthemen(professur:Organisation):boolean{
+    var idx = this.professuren.indexOf(professur);
+    return this.showArbeitsthemen[idx];
   }
 
 
@@ -49,6 +83,16 @@ export class BubbleComponent implements OnInit {
     this.showProfessuren = !this.showProfessuren;
     document.getElementById(this.institute.name).classList.toggle("paused");
     document.getElementById(this.institute.name).classList.toggle("brighten")
+  }
+
+  openPopUp(allTopics:Content[], topic:Content): void {
+    const dialogRef = this.dialog.open(PopupComponent, {
+      data: {
+        abschlussarbeit: topic,
+        all: allTopics
+      },
+      width: "70%"
+    });
   }
 
   lightenDarkenColor(col,amt):string {
@@ -69,6 +113,7 @@ export class BubbleComponent implements OnInit {
     else if  ( g < 0 ) g = 0;
     return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
   }
+
 
   // for differentiating clicking and dragging as well as dragging between different
   mousePosition = {

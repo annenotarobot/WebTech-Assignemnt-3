@@ -21,9 +21,9 @@ export class AppComponent implements OnInit {
   title = 'abschlussarbeiten-app';
   filterPerson: Person = null;
   filterTag: Tag = null;
-  creative: boolean = false;
+  creative: boolean = true;
 
-  constructor(public communitymashup: CommunityMashupService, public dialog: MatDialog) {
+  constructor(public communitymashup: CommunityMashupService) {
   }
 
   ngOnInit(): void {
@@ -77,20 +77,21 @@ export class AppComponent implements OnInit {
     var result = [];
     if (items != undefined) {
       items.forEach(item => {
-        if (item instanceof Content) { 
+        if (item instanceof Content) {
           if (this.itemConnectedToAbschlussarbeit(item) && this.itemConnectedToFilterPerson) {
            result.push(item);
           }
-        } 
+        }
       } );
     }
+    console.log(result)
     return result;
   }
 
   /*
   returns true if item (organisation or Person or...) is connected to a content object with the metaTag Abschlussarbeit
   */
-  itemConnectedToAbschlussarbeit(item:Item):Boolean{
+  itemConnectedToAbschlussarbeit(item:Item):boolean{
     var connections = item.getConnectedFromItems();
     var result = [];
     if (connections != undefined && connections.length >0){
@@ -104,10 +105,10 @@ export class AppComponent implements OnInit {
 
   /*
   TODO: check if when filtered person has been selected then "keine Auswahl" is selected again if filterPerson value is null again
-  
-  returns true if item (organisation or Person or...) is connected to the selected filterPerson 
+
+  returns true if item (organisation or Person or...) is connected to the selected filterPerson
   */
-  itemConnectedToFilterPerson(item:Item):Boolean{
+  itemConnectedToFilterPerson(item:Item):boolean{
     if(this.filterPerson == null) return true;
     var connections = item.getConnectedFromItems();
     var result = [];
@@ -126,7 +127,7 @@ export class AppComponent implements OnInit {
   not metaTag but Tag
   itemHasTag
   */
-  itemConnectedToFilterTag(item:Item):Boolean{
+  itemConnectedToFilterTag(item:Item):boolean{
     return true;
     // if(this.filterTag == null) return true;
     // var connections = item.getConnectedFromItems();
@@ -149,18 +150,21 @@ export class AppComponent implements OnInit {
     var orgas = organisations;
     var results = [];
     var childOrgas = [];
-    orgas.forEach(org => {
+    if (orgas != null){
+      orgas.forEach(org => {
       if(this.itemConnectedToAbschlussarbeit(org) && this.itemConnectedToFilterPerson(org)){
               results.push(org)
       } else {
         childOrgas = org.getChildOrganisations();
-          if(childOrgas != null){  
+          if(childOrgas != null){
             if(this.filterOrganisations(childOrgas).length > 0){
             results.push(org)
             }
           }
         }
-    }); 
+      });
+    }
+
     return results;
   }
 
@@ -175,13 +179,6 @@ export class AppComponent implements OnInit {
       })
     }
     return personsWithAbschlussarbeit
-  }
-
-  openPopUp(): void {
-    const dialogRef = this.dialog.open(PopupComponent, {
-      id: "0", // TODO: get ID of Abschlussarbeit
-      width: "70%"
-    });
   }
 
   valid(org: Organisation):boolean{

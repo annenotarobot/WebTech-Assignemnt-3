@@ -15,8 +15,8 @@
     <mat-label>Betreuer wählen</mat-label>
     <mat-select [(value)]="filterPerson">
       <mat-option>Keine Auswahl</mat-option>
-      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person">  
-        {{person.lastname}} 
+      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person">
+        {{person.lastname}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -47,7 +47,6 @@
 <h2> Ergebnisse </h2>
 <div *ngIf = "!creative" id="accordion">
 <div>
-  <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
   <button mat-raised-button (click)="accordion.openAll()">Expand All </button>
   <button mat-raised-button (click)="accordion.closeAll()">Collapse All </button>
 </div>
@@ -117,7 +116,7 @@
   <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
 </ul>-->
 <div *ngIf="creative" style="height:800px">
-<div id="bubbles" *ngFor="let institut of getOrganisations('institut')" style="position:'static';">
-  <app-bubble *ngIf = "valid(institut)" [institute]="institut"></app-bubble>
+<div id="bubbles" *ngFor="let institut of this.getOrganisations('institut')" style="position:'static';">
+  <app-bubble *ngIf = "valid(institut)" [institute]="institut" [filterPerson]="filterPerson" [filterTag]="filterTag" [filterOrganisations]="filterOrganisations" [getConnectedAbschlussarbeiten]="getConnectedAbschlussarbeiten" [itemConnectedToAbschlussarbeit]="itemConnectedToAbschlussarbeit" [itemConnectedToFilterPerson]="itemConnectedToFilterPerson"></app-bubble>
 </div>
 </div>
