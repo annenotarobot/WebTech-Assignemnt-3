@@ -10,12 +10,12 @@
 <th colspan="3"> <h3>{{get_name()}}</h3></th>
 </tr>
 <tr *ngIf = "is_image(); else noimageblock">
-<th colspan="2">{{get_info()}}</th>
+<th colspan="2"><p>{{get_info()}}</p></th>
 <th> <img class=smallimage src={{get_image_src()}}/></th>
 </tr>
 <ng-template #noimageblock>
 <tr>
-<th colspan="3">{{get_info()}} </th>
+<th colspan="3"><p>{{get_info()}} </p></th>
 </tr>
 </ng-template>
 

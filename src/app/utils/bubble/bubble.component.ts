@@ -25,6 +25,7 @@ export class BubbleComponent implements OnChanges {
   @Input() itemConnectedToFilterTag: (item:Item) => boolean;
   @Input() organisationIsInstitut: (org: Organisation) => boolean;
   @Input() organisationIsProfessur: (org:Organisation)=> boolean;
+  @Input() checkFilterCriteria: (item:Item)=>boolean;
   bubblename: string;
   showProfessuren: boolean = false;
   professuren: Organisation[];

@@ -117,7 +117,7 @@
 </ul>-->
 <div *ngIf="creative" style="height:800px">
 <div id="bubbles" *ngFor="let institut of this.getOrganisations('institut')" style="position:'static';">
-  <app-bubble *ngIf = "valid(institut)" [institute]="institut" [filterPerson]="filterPerson" [filterTag]="filterTag" [filterOrganisations]="filterOrganisations" [getConnectedAbschlussarbeiten]="getConnectedAbschlussarbeiten" [itemConnectedToAbschlussarbeit]="itemConnectedToAbschlussarbeit" [itemConnectedToFilterPerson]="itemConnectedToFilterPerson" [itemConnectedToFilterTag]="itemConnectedToFilterTag" [organisationIsProfessur]="organisationIsProfessur" [organisationIsInstitut]="organisationIsInstitut"></app-bubble>
+  <app-bubble *ngIf = "valid(institut)" [institute]="institut" [filterPerson]="filterPerson" [filterTag]="filterTag" [filterOrganisations]="filterOrganisations" [getConnectedAbschlussarbeiten]="getConnectedAbschlussarbeiten" [itemConnectedToAbschlussarbeit]="itemConnectedToAbschlussarbeit" [itemConnectedToFilterPerson]="itemConnectedToFilterPerson" [itemConnectedToFilterTag]="itemConnectedToFilterTag" [organisationIsProfessur]="organisationIsProfessur" [organisationIsInstitut]="organisationIsInstitut" [checkFilterCriteria]="checkFilterCriteria"></app-bubble>
 </div>
 </div>
 
@@ -150,7 +150,7 @@
               <img width="auto" src="{{content.getImages()[0]['fileUrl']}}">
               </div>
             </mat-expansion-panel>
-            <mat-expansion-panel *ngFor="let content of getConnectedAbschlussarbeiten(institut)">              
+            <mat-expansion-panel *ngFor="let content of getConnectedAbschlussarbeiten(institut)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Abschlussarbeit: {{content.name}}
