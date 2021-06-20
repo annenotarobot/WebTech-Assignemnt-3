@@ -109,7 +109,7 @@ export class AppComponent implements OnInit {
       if (items != undefined) {
         items.forEach(item => {
           if (item instanceof Content) { 
-            if (item.getMetaTagsAsString().includes("Abschlussarbeit") && this.itemConnectedToFilterPerson(item) && this.itemConnectedToFilterTag(item)) {
+            if (item.getMetaTagsAsString().includes("Abschlussarbeit") && this.checkFilterCriteria(item)) {
             result.push(item);
             }
           } 
@@ -121,7 +121,7 @@ export class AppComponent implements OnInit {
       if (items != undefined) {
         items.forEach(item => {
           if (item instanceof Content) { 
-            if (item.getMetaTagsAsString().includes("Abschlussarbeit") && this.itemConnectedToFilterPerson(item) && this.itemConnectedToFilterTag(item)) {
+            if (item.getMetaTagsAsString().includes("Abschlussarbeit") && this.checkFilterCriteria(item)) {
             result.push(item);
             }
           } 
@@ -140,28 +140,46 @@ export class AppComponent implements OnInit {
     if (connections != undefined && connections.length >0){
       connections.forEach(item0 => {
         if (item0 instanceof Content) {
-          if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
+          if (item0.getMetaTagsAsString().includes("Abschlussarbeit")&& this.checkFilterCriteria(item0)) { 
+            result.push(item0);
+          }
           }});
     }
     return (result.length !=0);
   }
 
+  checkFilterCriteria(item:Item):boolean{
+    if(this.filterPerson!=null) if(!this.itemConnectedToFilterPerson(item))return false;
+    if(this.filterTag!=null) if(!this.itemConnectedToFilterTag(item))return false;
+    return true;
+  }
+
   /*
-  TODO: check if when filtered person has been selected then "keine Auswahl" is selected again if filterPerson value is null again
-  
+  TODO: function does not seem to work properly  
   returns true if item (organisation or Person or...) is connected to the selected filterPerson 
   */
   itemConnectedToFilterPerson(item:Item):Boolean{
     if(this.filterPerson == null) return true;
     var connectedItems = item.getConnectedFromItems();
-    if (connectedItems != undefined && connectedItems.length >0){
-      connectedItems.forEach(person => {
-        if (person instanceof Person) {
-          if (isDeepStrictEqual(person, this.filterPerson)) { 
+    //code reaches here console.log("step 1")
+    if (connectedItems != undefined){
+    //code reaches here   console.log("step 2") 
+    //console.log(item); //debugging 
+    //console.log(connectedItems); //debugging 
+      if( connectedItems.length >0){
+        //code reaches here console.log("step 3") 
+        connectedItems.forEach(person => {
+          //code reaches here  console.log("step 4")
+          if (person instanceof Person) {
+            //if (isDeepStrictEqual(person, this.filterPerson)) { 
+              console.log(person.lastname.toString+" is equlas "+this.filterPerson.lastname.toString+" ???");
+            if(person.lastname.toString === this.filterPerson.lastname.toString) {  
+              console.log("TRUE!")
             return true;
+            }
           }
-        }
-      });
+        });
+      }
     }
    return false;
   }
@@ -194,19 +212,11 @@ export class AppComponent implements OnInit {
     var orgas = organisations;
     var results = [];
     var childOrgas = [];
-    var connectedAbschlussarbeiten = [];
     orgas.forEach(org => {
       //verifies if the organization is connected to an abschlussarbeit
       //then check if at least one of the abschlussarbeiten fullfills the necessary criteria fullfils filtering criteria wiht person and tag
       if(this.itemConnectedToAbschlussarbeit(org)){
-        connectedAbschlussarbeiten = this.getConnectedAbschlussarbeiten(org);
-        console.log(connectedAbschlussarbeiten);
-        //following could and shuld be better programmed
-        if(connectedAbschlussarbeiten != undefined){
-          if(connectedAbschlussarbeiten.length > 0){
             results.push(org)
-          }
-        }
       } else {
         childOrgas = org.getChildOrganisations();
           if(childOrgas != null){  
