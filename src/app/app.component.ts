@@ -92,7 +92,7 @@ export class AppComponent implements OnInit {
     var childOrgas = [];
     childOrgas = orga.getChildOrganisations();
     childOrgas.forEach(org => {
-          if (this.organisationIsProfessur(orga) || true) { professuren.push(org);} //fix mistake when filtering for professuren only
+          if (this.organisationIsProfessur(org)) { professuren.push(org);} 
           });    
     results = this.filterOrganisations(professuren);
     return results;
@@ -109,7 +109,7 @@ export class AppComponent implements OnInit {
       if (items != undefined) {
         items.forEach(item => {
           if (item instanceof Content) { 
-            if (this.itemConnectedToFilterPerson(item) && this.itemConnectedToFilterTag(item)) {
+            if (item.getMetaTagsAsString().includes("Abschlussarbeit") && this.itemConnectedToFilterPerson(item) && this.itemConnectedToFilterTag(item)) {
             result.push(item);
             }
           } 
@@ -121,7 +121,7 @@ export class AppComponent implements OnInit {
       if (items != undefined) {
         items.forEach(item => {
           if (item instanceof Content) { 
-            if (this.itemConnectedToFilterPerson(item) && this.itemConnectedToFilterTag(item)) {
+            if (item.getMetaTagsAsString().includes("Abschlussarbeit") && this.itemConnectedToFilterPerson(item) && this.itemConnectedToFilterTag(item)) {
             result.push(item);
             }
           } 
@@ -195,21 +195,15 @@ export class AppComponent implements OnInit {
     var results = [];
     var childOrgas = [];
     var connectedAbschlussarbeiten = [];
-    var counter=0;
     orgas.forEach(org => {
       //verifies if the organization is connected to an abschlussarbeit
       //then check if at least one of the abschlussarbeiten fullfills the necessary criteria fullfils filtering criteria wiht person and tag
       if(this.itemConnectedToAbschlussarbeit(org)){
         connectedAbschlussarbeiten = this.getConnectedAbschlussarbeiten(org);
-        counter=0;
-        //following could and shuld be better programmed (cause: issues with filter function)
+        console.log(connectedAbschlussarbeiten);
+        //following could and shuld be better programmed
         if(connectedAbschlussarbeiten != undefined){
-            connectedAbschlussarbeiten.forEach(arbeit => {
-            if (this.itemConnectedToFilterPerson(arbeit) && this.itemConnectedToFilterTag(arbeit)) {
-              counter = counter +1;
-            }
-          });
-          if(counter>0){
+          if(connectedAbschlussarbeiten.length > 0){
             results.push(org)
           }
         }
