@@ -151,6 +151,16 @@
               <img width="auto" src="{{content.getImages()[0]['fileUrl']}}">
               </div>
             </mat-expansion-panel>
+            <mat-expansion-panel *ngFor="let content of getConnectedAbschlussarbeiten(institut)">              
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Abschlussarbeit: {{content.name}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div >
+              {{content.stringValue}}<br>
+              </div>
+            </mat-expansion-panel>
           </div>
         </div>
       </mat-expansion-panel>
