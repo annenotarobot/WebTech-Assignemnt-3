@@ -11,6 +11,7 @@ import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.
 import { MatDialog } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import * as $ from 'jquery';
+import { isDeepStrictEqual } from 'util';
 
 
 
@@ -91,7 +92,7 @@ export class AppComponent implements OnInit {
     var childOrgas = [];
     childOrgas = orga.getChildOrganisations();
     childOrgas.forEach(org => {
-          if (this.organisationIsProfessur(orga) || true) { professuren.push(org);} //fix mistake when filtering for professuren only
+          if (this.organisationIsProfessur(org)) { professuren.push(org);}
           });
     results = this.filterOrganisations(professuren);
     return results;
@@ -108,7 +109,7 @@ export class AppComponent implements OnInit {
       if (items != undefined) {
         items.forEach(item => {
           if (item instanceof Content) {
-            if (this.itemConnectedToFilterPerson && this.itemConnectedToFilterTag) {
+            if (item.getMetaTagsAsString().includes("Abschlussarbeit") && this.checkFilterCriteria(item)) {
             result.push(item);
             }
           }
@@ -120,7 +121,7 @@ export class AppComponent implements OnInit {
       if (items != undefined) {
         items.forEach(item => {
           if (item instanceof Content) {
-            if (this.itemConnectedToFilterPerson && this.itemConnectedToFilterTag) {
+            if (item.getMetaTagsAsString().includes("Abschlussarbeit") && this.checkFilterCriteria(item)) {
             result.push(item);
             }
           }
@@ -140,28 +141,48 @@ export class AppComponent implements OnInit {
     if (connections != undefined && connections.length >0){
       connections.forEach(item0 => {
         if (item0 instanceof Content) {
-          if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
+          if (item0.getMetaTagsAsString().includes("Abschlussarbeit")&& this.checkFilterCriteria(item0)) {
+            result.push(item0);
+          }
           }});
     }
     return (result.length !=0);
   }
 
-  /*
-  TODO: check if when filtered person has been selected then "keine Auswahl" is selected again if filterPerson value is null again
+  checkFilterCriteria(item:Item):boolean{
+    if(this.filterPerson!=null) if(!this.itemConnectedToFilterPerson(item))return false;
+    if(this.filterTag!=null) if(!this.itemConnectedToFilterTag(item))return false;
+    return true;
+  }
 
+  /*
+  TODO: function does not seem to work properly
   returns true if item (organisation or Person or...) is connected to the selected filterPerson
   */
   itemConnectedToFilterPerson(item:Item):boolean{
     if(this.filterPerson == null) return true;
-    var connections = item.getConnectedFromItems();
-    var result = [];
-    if (connections.length >0){
-      connections.forEach(item0 => {
-        if (item0 instanceof Content) {
-          if (item0.getMetaTagsAsString().includes("Abschlussarbeit")) { result.push(item0);}
-          }})
-    };
-    return (result.length !=0);
+    var connectedItems = item.getConnectedFromItems();
+    //code reaches here console.log("step 1")
+    if (connectedItems != undefined){
+    //code reaches here   console.log("step 2")
+    //console.log(item); //debugging
+    //console.log(connectedItems); //debugging
+      if( connectedItems.length >0){
+        //code reaches here console.log("step 3")
+        connectedItems.forEach(person => {
+          //code reaches here  console.log("step 4")
+          if (person instanceof Person) {
+            //if (isDeepStrictEqual(person, this.filterPerson)) {
+              console.log(person.lastname.toString+" is equlas "+this.filterPerson.lastname.toString+" ???");
+            if(person.lastname.toString === this.filterPerson.lastname.toString) {
+              console.log("TRUE!")
+            return true;
+            }
+          }
+        });
+      }
+    }
+   return false;
   }
 
 
@@ -177,9 +198,8 @@ export class AppComponent implements OnInit {
     // var result = [];
     // if (connections.length >0){
     //   connections.forEach(item0 => {
-    //     if (item0 instanceof Content) {
     //       if (item0.getTagsAsString().includes(filterTag.toString())) { result.push(item0);}
-    //       }})
+    //       })
     // };
     // return (result.length !=0);
   }
@@ -195,8 +215,10 @@ export class AppComponent implements OnInit {
     var childOrgas = [];
     if (orgas != null){
     orgas.forEach(org => {
-      if(this.itemConnectedToAbschlussarbeit(org) && this.itemConnectedToFilterPerson(org) &&this.itemConnectedToFilterTag(org)){
-              results.push(org)
+      //verifies if the organization is connected to an abschlussarbeit
+      //then check if at least one of the abschlussarbeiten fullfills the necessary criteria fullfils filtering criteria wiht person and tag
+      if(this.itemConnectedToAbschlussarbeit(org)){
+            results.push(org)
       } else {
         childOrgas = org.getChildOrganisations();
           if(childOrgas != null){
@@ -242,9 +264,9 @@ printToConsole(s:string):void{
 }
 
 updateDiv(): void{
-    $( "#here" ).load(window.location.href + " #here" );
+    $( "accordion" ).load(window.location.href + " accordion" );
     console.log("console log: RELOADED ELEMENTS")
-}
+  }
 }
 
 
