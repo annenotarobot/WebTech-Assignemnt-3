@@ -11,6 +11,7 @@ import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.
 import { MatDialog } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import * as $ from 'jquery';  
+import { isDeepStrictEqual } from 'util';
 
 
 
@@ -108,7 +109,7 @@ export class AppComponent implements OnInit {
       if (items != undefined) {
         items.forEach(item => {
           if (item instanceof Content) { 
-            if (this.itemConnectedToFilterPerson && this.itemConnectedToFilterTag) {
+            if (this.itemConnectedToFilterPerson(item) && this.itemConnectedToFilterTag(item)) {
             result.push(item);
             }
           } 
@@ -120,7 +121,7 @@ export class AppComponent implements OnInit {
       if (items != undefined) {
         items.forEach(item => {
           if (item instanceof Content) { 
-            if (this.itemConnectedToFilterPerson && this.itemConnectedToFilterTag) {
+            if (this.itemConnectedToFilterPerson(item) && this.itemConnectedToFilterTag(item)) {
             result.push(item);
             }
           } 
@@ -156,7 +157,7 @@ export class AppComponent implements OnInit {
     if (connectedItems != undefined && connectedItems.length >0){
       connectedItems.forEach(person => {
         if (person instanceof Person) {
-          if (person === this.filterPerson) { 
+          if (isDeepStrictEqual(person, this.filterPerson)) { 
             return true;
           }
         }
@@ -193,14 +194,26 @@ export class AppComponent implements OnInit {
     var orgas = organisations;
     var results = [];
     var childOrgas = [];
+    var connectedAbschlussarbeiten = [];
+    var counter=0;
     orgas.forEach(org => {
-      if(this.itemConnectedToAbschlussarbeit(org) && this.itemConnectedToFilterPerson(org) &&this.itemConnectedToFilterTag(org)){
-              results.push(org)
-      } else
-      // if(this.getConnectedAbschlussarbeiten(org).length>0){
-      //   results.push(org)
-      // }else 
-      {
+      //verifies if the organization is connected to an abschlussarbeit
+      //then check if at least one of the abschlussarbeiten fullfills the necessary criteria fullfils filtering criteria wiht person and tag
+      if(this.itemConnectedToAbschlussarbeit(org)){
+        connectedAbschlussarbeiten = this.getConnectedAbschlussarbeiten(org);
+        counter=0;
+        //following could and shuld be better programmed (cause: issues with filter function)
+        if(connectedAbschlussarbeiten != undefined){
+            connectedAbschlussarbeiten.forEach(arbeit => {
+            if (this.itemConnectedToFilterPerson(arbeit) && this.itemConnectedToFilterTag(arbeit)) {
+              counter = counter +1;
+            }
+          });
+          if(counter>0){
+            results.push(org)
+          }
+        }
+      } else {
         childOrgas = org.getChildOrganisations();
           if(childOrgas != null){  
             if(this.filterOrganisations(childOrgas).length > 0){
