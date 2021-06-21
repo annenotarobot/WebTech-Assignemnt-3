@@ -46,6 +46,10 @@ export class BubbleComponent implements OnChanges {
   }
   ngOnChanges(changes:SimpleChanges):void {
     this.filterPerson = changes.filterPerson.currentValue;
+    if (changes.filterTag == undefined){
+      this.filterTag = null;
+      return
+    }
     this.filterTag = changes.filterTag.currentValue;
   }
 

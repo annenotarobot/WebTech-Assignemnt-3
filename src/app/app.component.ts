@@ -167,13 +167,13 @@ export class AppComponent implements OnInit {
   */
   itemConnectedToFilterPerson(item:Item):boolean{
     if(this.filterPerson == null) return true;
-    var connectedItems = item.getConnectedFromItems();
+    var connectedItems = item.getConnectedItems();
     var counter =0;
     if (connectedItems != undefined){
       if( connectedItems.length >0){
         connectedItems.forEach(person => {
           if (person instanceof Person) {
-            if(person.lastname.toString === this.filterPerson.lastname.toString) {
+            if(person === this.filterPerson) {
             counter = counter+1;
             }
           }
@@ -255,10 +255,6 @@ drop(ev, id) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData(id);
   ev.target.appendChild(document.getElementById(data));
-}
-
-printToConsole(s:string):void{
-  console.log("console log: "+s)
 }
 
 updateDiv(): void{
