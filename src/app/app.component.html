@@ -99,9 +99,12 @@
   <div *ngIf="!creative" id="accordion">
     <div>
       <button class="mat-button-toggle" value={{creative}} (click)="toggleCreative()">Toggle kreatives Design</button>
-      <button class="mat-raised-button" mat-raised-button (click)="accordion.openAll()">Alle aufklappen
+      <button class="mat-raised-button" mat-raised-button (click)="accordion.openAll();allOpen = true; updateDiv()">Alle
+        aufklappen
       </button>
-      <button class="mat-raised-button" mat-raised-button (click)="accordion.closeAll()">Alle einklappen</button>
+      <button class="mat-raised-button" mat-raised-button (click)="accordion.closeAll();allOpen = false; updateDiv()">
+        Alle einklappen
+      </button>
     </div>
     <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
     <mat-accordion id="#here" [multi]="true" #accordion="matAccordion">
@@ -118,7 +121,7 @@
         </mat-expansion-panel-header>
         <div class="content-div">
           <mat-expansion-panel *ngFor="let professur of getProfessurenChildOrganisations(institut)"
-                               class="professur-panel">
+                               class="professur-panel" [expanded]="allOpen">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{professur.name}}

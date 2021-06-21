@@ -1,16 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { parseString } from 'xml2js';
-import { InformationObject } from './model/informationobject.model';
-import { MetaTag } from './model/metatag.model';
-import { Connection } from './model/connection.model';
-import { Organisation } from './model/organisation.model';
-import { Content } from './model/content.model';
-import { Person } from './model/person.model';
-import { Identifier } from './model/identifier.model';
-import { Tag } from './model/tag.model';
-import { Item } from './model/item.model';
-import { Image } from './model/image.model';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {parseString} from 'xml2js';
+import {MetaTag} from './model/metatag.model';
+import {Connection} from './model/connection.model';
+import {Organisation} from './model/organisation.model';
+import {Content} from './model/content.model';
+import {Person} from './model/person.model';
+import {Identifier} from './model/identifier.model';
+import {Tag} from './model/tag.model';
+import {Item} from './model/item.model';
+import {Image} from './model/image.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,50 +25,72 @@ export class CommunityMashupService {
   /* sourceUrl: string = 'http://127.0.0.1:5000/';
    sourceUrl: string = 'https://conf.communitymashup.net/xmlinf/mashup';
    sourceUrl: string = 'https://webtech.cscwlab.de/mashup-abschlussarbeiten-test1.xml';*/
-  sourceUrl: string = '/assets/mashup.xml'
+  sourceUrl: string = '/assets/mashup.xml';
   // sourceUrl: string = '/assets/mashup-abschlussarbeiten-test3.xml'
   public created: any;
   public lastModified: any;
   public items: Array<any> = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getPersons(metaTagString:string): Person[] {
+  getPersons(metaTagString: string): Person[] {
     if (metaTagString == null) {
       return this.itemTypeMap.get('data:Person');
     }
     var metaTag: MetaTag = this.getMetaTag(metaTagString);
-    if (metaTag == null) { return null; console.log("metatag "+metaTagString+" not known"); }
+    if (metaTag == null) {
+      return null;
+      console.log('metatag ' + metaTagString + ' not known');
+    }
     // iterate through items metatagged with requested metatag and filter person items
     var itemArr: Item[] = metaTag.getMetaTaggedItems();
     var result: Person[] = [];
-    itemArr.forEach(item => { if (item instanceof Person) { result.push(item); }} );
+    itemArr.forEach(item => {
+      if (item instanceof Person) {
+        result.push(item);
+      }
+    });
     return result;
   }
 
-  getContents(metaTagString:string) {
+  getContents(metaTagString: string) {
     if (metaTagString == null) {
       return this.itemTypeMap.get('data:Content');
     }
     var metaTag: MetaTag = this.getMetaTag(metaTagString);
-    if (metaTag == null) { return null; console.log("metatag "+metaTagString+" not known"); }
+    if (metaTag == null) {
+      return null;
+      console.log('metatag ' + metaTagString + ' not known');
+    }
     // iterate through items metatagged with requested metatag and filter content items
     var itemArr = metaTag.getMetaTaggedItems();
-    var result : Content[] = [];
-    itemArr.forEach(item => { if (item instanceof Content) { result.push(item); } });
+    var result: Content[] = [];
+    itemArr.forEach(item => {
+      if (item instanceof Content) {
+        result.push(item);
+      }
+    });
     return result;
   }
 
-  getOrganisations(metaTagString:string) {
+  getOrganisations(metaTagString: string) {
     if (metaTagString == null) {
       return this.itemTypeMap.get('data:Organisation');
     }
     var metaTag: MetaTag = this.getMetaTag(metaTagString);
-    if (metaTag == null) { return null; console.log("metatag "+metaTagString+" not known"); }
+    if (metaTag == null) {
+      return null;
+      console.log('metatag ' + metaTagString + ' not known');
+    }
     // iterate through items metatagged with requested metatag and filter organisation items
     var itemArr = metaTag.getMetaTaggedItems();
-    var result : Organisation[] = [];
-    itemArr.forEach(item => { if (item instanceof Organisation) { result.push(item); } });
+    var result: Organisation[] = [];
+    itemArr.forEach(item => {
+      if (item instanceof Organisation) {
+        result.push(item);
+      }
+    });
     return result;
   }
 
@@ -77,15 +98,21 @@ export class CommunityMashupService {
     return this.itemTypeMap.get('data:MetaTag');
   }
 
-  getMetaTag(metaTagString:string): MetaTag {
-    let metaTags:MetaTag[] = this.getMetaTags();
-    if (metaTags == null) { return null; }
-    var result:MetaTag = null;
-    metaTags.forEach(metaTag => { if (metaTag.name == metaTagString) { result = metaTag; }} );
+  getMetaTag(metaTagString: string): MetaTag {
+    let metaTags: MetaTag[] = this.getMetaTags();
+    if (metaTags == null) {
+      return null;
+    }
+    var result: MetaTag = null;
+    metaTags.forEach(metaTag => {
+      if (metaTag.name == metaTagString) {
+        result = metaTag;
+      }
+    });
     return result;
   }
 
-  getConnections(fromId:string): Connection[] {
+  getConnections(fromId: string): Connection[] {
     if (!fromId) {
       return this.itemTypeMap.get('data:Connection');
     }
@@ -94,11 +121,11 @@ export class CommunityMashupService {
     return result;
   }
 
-  getItemById(id:string): any {
+  getItemById(id: string): any {
     return this.itemIdMap.get(id);
   }
 
-  getItemCount(itemType:string) {
+  getItemCount(itemType: string) {
     if (itemType == null) {
       return this.itemIdMap.size;
     }
@@ -111,7 +138,7 @@ export class CommunityMashupService {
 
 
   loadFromUrl(): Promise<any> {
-    console.log("loadFromUrl");
+    console.log('loadFromUrl');
     let self = this;
     let url = this.sourceUrl;
     const promise = this.http.get(url, {
@@ -126,7 +153,7 @@ export class CommunityMashupService {
           self.items = result['data:DataSet']['items'];
           console.log('Finished loading dataset - size=' + self.items.length);
           self.initializeDataSet();
-        })
+        });
         return data;
       });
 
@@ -140,11 +167,11 @@ export class CommunityMashupService {
   initializeDataSet() {
     // check if DataSet is already initialized ...
     if (this.itemIdMap.size > 0) {
-      console.warn("initializeDataSet called with {{this.itemIdMap.size}} elements already stored");
+      console.warn('initializeDataSet called with {{this.itemIdMap.size}} elements already stored');
       return;
     }
     // iterate through the items and create correct classes and indexes
-    for(let i=0;i<this.items.length;i++) {
+    for (let i = 0; i < this.items.length; i++) {
       var item = this.items[i]['$'];
       var itemIdent = item['ident'];
       var itemType = item['xsi:type'];

@@ -12,31 +12,37 @@ html {
   background-image: url(assets/space1.jpg);
   background-attachment: fixed;
 }
+
 Body {
-  background-color: rgb(250, 248, 242); opacity: 1;
+  background-color: rgb(250, 248, 242);
+  opacity: 1;
   Margin: 10%;
   Padding: 5%;
   box-shadow: 6px 6px 5px 5px rgb(46, 46, 46);
   font-family: sans-serif;
   font-size: 1.6em;
-  }
+}
+
 h1 {
   font-size: 2.5em;
   font-family: sans-serif;
   color: rgb(65, 65, 65);
   margin-bottom: 10px;
-  }
+}
+
 h2 {
   font-size: 1.5em;
   font-family: sans-serif;
   color: rgb(65, 65, 65);
   margin-bottom: 5px;
 }
+
 h3 {
   font-size: 1.3em;
   font-family: sans-serif;
   color: rgb(65, 65, 65);
 }
+
 h4 {
   font-size: 1.2em;
   font-style: italic;
@@ -44,76 +50,88 @@ h4 {
   color: rgb(65, 65, 65);
   text-align: left;
 }
+
 h5 {
   font-size: 1em;
   font-family: sans-serif;
   color: rgb(65, 65, 65);
   text-align: left;
 }
-p{
+
+p {
   margin-top: 5px;
   margin-bottom: 5px;
   font-family: sans-serif;
   font-size: 1em;
   color: rgb(65, 65, 65);
-  font-weight:normal
+  font-weight: normal
 }
-ul{
+
+ul {
   font-family: sans-serif;
   font-size: 1em;
   color: rgb(65, 65, 65);
 }
-ol{
+
+ol {
   font-family: sans-serif;
   font-size: 1em;
   color: rgb(65, 65, 65);
 }
-li{
+
+li {
   font-family: sans-serif;
   font-size: 1em;
   color: rgb(65, 65, 65);
 }
+
 img {
   max-width: 75%;
   max-height: 75%;
 }
-.mat-raised-button{
+
+.mat-raised-button {
   font-family: sans-serif;
   font-size: 1em;
   color: white;
   background-color: #222222;
   margin: 8px 8px 8px 8px;
 }
-.mat-stroked-button{
+
+.mat-stroked-button {
   font-family: sans-serif;
   font-size: 1em;
   color: #222222;
   background-color: white;
   margin: 8px 8px 8px 8px;
 }
-.mat-button-toggle{
+
+.mat-button-toggle {
   font-family: sans-serif;
   font-size: 1em;
   color: #222222;
   background-color: white;
   margin: 8px 8px 8px 8px;
 }
-.mat-fab{
+
+.mat-fab {
   font-family: sans-serif;
   font-size: 1em;
   margin: 8px 8px 8px 0;
 }
+
 .organisation-expansion-panel {
-  background-color: rgb(211,211,211);
+  background-color: rgb(211, 211, 211);
   font-family: sans-serif;
   font-size: 1em;
 }
 
-.professur-panel{
-  background-color: rgb(180,180,180);
+.professur-panel {
+  background-color: rgb(180, 180, 180);
   font-family: sans-serif;
   font-size: 1em;
 }
+
 /* .organisation-expansion-panel-body{
   background-color: lightgrey;
   font-family: sans-serif;
