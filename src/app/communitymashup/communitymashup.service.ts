@@ -23,11 +23,11 @@ import { Image } from './model/image.model';
 
 export class CommunityMashupService {
 
-  /* sourceUrl: string = 'http://127.0.0.1:5000/'; 
-   sourceUrl: string = 'https://conf.communitymashup.net/xmlinf/mashup'; 
+  /* sourceUrl: string = 'http://127.0.0.1:5000/';
+   sourceUrl: string = 'https://conf.communitymashup.net/xmlinf/mashup';
    sourceUrl: string = 'https://webtech.cscwlab.de/mashup-abschlussarbeiten-test1.xml';*/
-   sourceUrl: string = '/assets/mashup.xml'
-
+  sourceUrl: string = '/assets/mashup.xml'
+  // sourceUrl: string = '/assets/mashup-abschlussarbeiten-test3.xml'
   public created: any;
   public lastModified: any;
   public items: Array<any> = [];

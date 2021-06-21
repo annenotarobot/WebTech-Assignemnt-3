@@ -64,6 +64,9 @@ export class Item {
     var result:Item[] = [];
     this.connectedTo.forEach(id => {
       var connection = this.service.getItemById(id);
+      if (connection == undefined){
+        console.log(id)
+      }
       result.push(this.service.getItemById(connection.toId))
     } );
     return result;
