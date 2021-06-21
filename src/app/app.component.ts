@@ -13,6 +13,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import * as $ from 'jquery';
 import { isDeepStrictEqual } from 'util';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 
@@ -171,7 +173,7 @@ export class AppComponent implements OnInit {
       if( connectedItems.length >0){
         connectedItems.forEach(person => {
           if (person instanceof Person) {
-            if(person.lastname.toString === this.filterPerson.lastname.toString) {  
+            if(person.lastname.toString === this.filterPerson.lastname.toString) {
             counter = counter+1;
             }
           }

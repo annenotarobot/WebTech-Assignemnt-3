@@ -46,16 +46,12 @@
 <br>
 <h2> Ergebnisse </h2>
 
-<div>
-  <button class="mat-button-toggle" value={{creative}} (click)="toggleCreative()">Toggle kreatives Design </button>
-  <button class="mat-raised-button" *ngIf = "!creative" mat-raised-button (click)="accordion.openAll()">Alle aufklappen</button>
-  <button class="mat-raised-button" *ngIf = "!creative" mat-raised-button (click)="accordion.closeAll()">Alle einklappen</button>
-</div>
 
-<div *ngIf = "!creative" id="accordion">
-  <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
+
+<!--<div *ngIf = "!creative" id="accordion">
+  exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel
   <mat-accordion id="#here" multi="true" #accordion="matAccordion">
-    <!-- Institute -->
+    Institute
     <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let institut of getOrganisations('institut')"
                          #expansionPanel="matExpansionPanel">
       <mat-expansion-panel-header>
@@ -82,8 +78,11 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-</div>
+</div> -->
 <div *ngIf="creative" style="height:800px">
+<div>
+  <button class="mat-button-toggle" value={{creative}} (click)="toggleCreative()">Toggle kreatives Design </button>
+</div>
 <div id="bubbles" *ngFor="let institut of this.getOrganisations('institut')" style="position:'static';">
   <app-bubble *ngIf = "valid(institut)" [institute]="institut" [filterPerson]="filterPerson" [filterTag]="filterTag" [filterOrganisations]="filterOrganisations" [getConnectedAbschlussarbeiten]="getConnectedAbschlussarbeiten" [itemConnectedToAbschlussarbeit]="itemConnectedToAbschlussarbeit" [itemConnectedToFilterPerson]="itemConnectedToFilterPerson" [itemConnectedToFilterTag]="itemConnectedToFilterTag" [organisationIsProfessur]="organisationIsProfessur" [organisationIsInstitut]="organisationIsInstitut" [checkFilterCriteria]="checkFilterCriteria"></app-bubble>
 </div>
@@ -92,6 +91,11 @@
 
 <br><br>
 <div *ngIf = "!creative" id="accordion">
+<div>
+  <button class="mat-button-toggle" value={{creative}} (click)="toggleCreative()">Toggle kreatives Design </button>
+  <button class="mat-raised-button"  mat-raised-button (click)="accordion.openAll()">Alle aufklappen</button>
+  <button class="mat-raised-button" mat-raised-button (click)="accordion.closeAll()">Alle einklappen</button>
+</div>
     <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
     <mat-accordion id="#here" multi="true" #accordion="matAccordion">
       <!-- Institute -->
@@ -133,3 +137,4 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
+</div>
