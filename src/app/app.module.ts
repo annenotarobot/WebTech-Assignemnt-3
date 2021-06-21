@@ -15,7 +15,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { BubbleComponent } from './utils/bubble/bubble.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import * as $ from 'jquery';  
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import * as $ from 'jquery';
 
 
 @NgModule({
@@ -28,7 +30,7 @@ import * as $ from 'jquery';
     BrowserModule, HttpClientModule,
     MatDialogModule, MatInputModule,
     MatButtonModule, MatCardModule, MatFormFieldModule, BrowserAnimationsModule, MatExpansionModule,
-    MatSelectModule, DragDropModule
+    MatSelectModule, DragDropModule, ScrollingModule, MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

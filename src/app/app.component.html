@@ -4,28 +4,28 @@
 <br>
 <div id="filter">
 <h2> Filter </h2>
-<p> Wähle hier Optionen aus, um die Anzeige für Seminar- und Abschlussarbeiten einzuschränken </p>
+<p> Wähle hier Optionen aus, um die Anzeige der angebotenen Themen einzuschränken. </p>
 <table style=width:100%>
 <tr>
 <th>
-  Wähle einen Betreuer:
+  Filtere nach einem Betreuer:
 </th>
   <th>
   <mat-form-field>
     <mat-label>Betreuer wählen</mat-label>
     <mat-select [(value)]="filterPerson">
       <mat-option>Keine Auswahl</mat-option>
-      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person" (click)="printToConsole(filterPerson.lastname)"(click)="updateDiv()">  
-        {{person.lastname}} 
+      <mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person" (click)="printToConsole(filterPerson.lastname)"(click)="updateDiv()">
+        {{person.lastname}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <p *ngIf="filterPerson != null">You selected: {{filterPerson.lastname}}</p>
+  <p *ngIf="filterPerson != null">Ausgewählter Betreuer: {{filterPerson.lastname}}</p>
   </th>
 </tr>
 <tr>
 <th>
-  Wähle einen Tag:
+  Filtere nach einem Thementag:
 </th>
   <th>
   <mat-form-field>
@@ -45,13 +45,14 @@
 
 <br>
 <h2> Ergebnisse </h2>
-<div *ngIf = "!creative" id="accordion">
+
 <div>
-  <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
-  <button mat-raised-button (click)="accordion.openAll()">Expand All </button>
-  <button mat-raised-button (click)="accordion.closeAll()">Collapse All </button>
+  <button class="mat-button-toggle" value={{creative}} (click)="toggleCreative()">Toggle kreatives Design </button>
+  <button class="mat-raised-button" *ngIf = "!creative" mat-raised-button (click)="accordion.openAll()">Alle aufklappen</button>
+  <button class="mat-raised-button" *ngIf = "!creative" mat-raised-button (click)="accordion.closeAll()">Alle einklappen</button>
 </div>
 
+<div *ngIf = "!creative" id="accordion">
   <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
   <mat-accordion id="#here" multi="true" #accordion="matAccordion">
     <!-- Institute -->
@@ -82,49 +83,15 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-<!--
-
-<div>
-  <button mat-raised-button (click)="openPopUp()">Open PopUp</button>
-  <button mat-raised-button (click)="accordion.openAll()">Expand All</button>
-  <button mat-raised-button (click)="accordion.closeAll()">Collapse All</button>
-</div>
-<h2>Filter</h2>
-<p>Contents:</p>
-<ul>
-  <li *ngFor="let content of getContents('Abschlussarbeit')">{{content.name}}<br/>
-    MetaTags: {{content.getMetaTagsAsString()}}<br/>
-    Abstract: {{content.stringValue}}<br/>URL: {{content.uri}}<br/>
-    Personen:
-    <ul>
-      <li *ngFor="let person of getConnectedPersons(content)">{{person.lastname}}
-    </ul>
-    <br/>
-    Organisationen:
-    <ul>
-      <li *ngFor="let organisation of getConnectedOrganisations(content)">{{organisation.name}}
-    </ul>
-    <br/>
-    Images:
-    <ul>
-      <li *ngFor="let image of content.getImages()">{{image.fileUrl}}
-    </ul>
-  </li>
-</ul>
-
-<p>MetaTags:</p>
-<ul>
-  <li *ngFor="let metaTag of getMetaTags()">{{metaTag.name}}</li>
-</ul>-->
 <div *ngIf="creative" style="height:800px">
-<div id="bubbles" *ngFor="let institut of getOrganisations('institut')" style="position:'static';">
-  <app-bubble *ngIf = "valid(institut)" [institute]="institut"></app-bubble>
+<div id="bubbles" *ngFor="let institut of this.getOrganisations('institut')" style="position:'static';">
+  <app-bubble *ngIf = "valid(institut)" [institute]="institut" [filterPerson]="filterPerson" [filterTag]="filterTag" [filterOrganisations]="filterOrganisations" [getConnectedAbschlussarbeiten]="getConnectedAbschlussarbeiten" [itemConnectedToAbschlussarbeit]="itemConnectedToAbschlussarbeit" [itemConnectedToFilterPerson]="itemConnectedToFilterPerson" [itemConnectedToFilterTag]="itemConnectedToFilterTag" [organisationIsProfessur]="organisationIsProfessur" [organisationIsInstitut]="organisationIsInstitut" [checkFilterCriteria]="checkFilterCriteria"></app-bubble>
 </div>
 </div>
 
 
 <br><br>
-<div *ngIf = "!creative" id="accordion">  
+<div *ngIf = "!creative" id="accordion">
     <!-- exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel -->
     <mat-accordion id="#here" multi="true" #accordion="matAccordion">
       <!-- Institute -->
@@ -140,7 +107,7 @@
         </mat-expansion-panel-header>
         <div>
           <div class="content-div">
-            <mat-expansion-panel *ngFor="let professur of getProfessurenChildOrganisations(institut)">              
+            <mat-expansion-panel *ngFor="let professur of getProfessurenChildOrganisations(institut)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{professur.name}}
@@ -151,7 +118,7 @@
               <img width="auto" src="{{content.getImages()[0]['fileUrl']}}">
               </div>
             </mat-expansion-panel>
-            <mat-expansion-panel *ngFor="let content of getConnectedAbschlussarbeiten(institut)">              
+            <mat-expansion-panel *ngFor="let content of getConnectedAbschlussarbeiten(institut)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Abschlussarbeit: {{content.name}}

@@ -1,8 +1,8 @@
 .smallimage{
-  height: auto;
-  width: 10em;
-  padding: 10px;
-  display: block;
+  width: 100%;
+  padding: 2px;
+  border: 0px;
+  margin: 0px;
 }
 
 .mat-raised-button {

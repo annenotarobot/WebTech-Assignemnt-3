@@ -33,6 +33,31 @@
   font-family: sans-serif;
   font-size: 0.7em;
   background-color: white;
+  z-index: 300;
+}
+
+.arbeiten{
+  position: absolute;
+  width: 300px;
+  height: fit-content;
+	border-radius: 5px;
+  color: black;
+  font-family: sans-serif;
+  background-color: transparent;
+  z-index: 900;
+}
+
+.listbutton{
+  height: max-content;
+  position: absolute;
+	border-radius: 5px;
+  color: black;
+  font-family: sans-serif;
+  font-size: 0.6em;
+  z-index: 300;
+}
+.listbutton.hover{
+  filter: brightness(70%);
 }
 .bubble:hover {
   filter: brightness(150%);
@@ -43,9 +68,12 @@
 .subbubble:hover {
   filter: brightness(130%);
 }
+.brightensubbubble {
+  filter: brightness(130%);
+}
 .brighten{
   filter:brightness(150%);
-  z-index: 100;
+  z-index: 300;
 }
 .paused{
   -webkit-animation-play-state: paused;
