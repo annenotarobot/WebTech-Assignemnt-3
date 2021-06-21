@@ -149,8 +149,12 @@ export class AppComponent implements OnInit {
   }
 
   checkFilterCriteria(item:Item):boolean{
-    if(this.filterPerson!=null) if(!this.itemConnectedToFilterPerson(item))return false;
-    if(this.filterTag!=null) if(!this.itemConnectedToFilterTag(item))return false;
+    if(this.filterPerson!=null) if(!this.itemConnectedToFilterPerson(item)){
+      return false;
+    }
+    if(this.filterTag!=null) if(!this.itemConnectedToFilterTag(item)){
+      return false;
+    }
     return true;
   }
 
@@ -161,27 +165,19 @@ export class AppComponent implements OnInit {
   itemConnectedToFilterPerson(item:Item):Boolean{
     if(this.filterPerson == null) return true;
     var connectedItems = item.getConnectedFromItems();
-    //code reaches here console.log("step 1")
+    var counter =0;
     if (connectedItems != undefined){
-    //code reaches here   console.log("step 2") 
-    //console.log(item); //debugging 
-    //console.log(connectedItems); //debugging 
       if( connectedItems.length >0){
-        //code reaches here console.log("step 3") 
         connectedItems.forEach(person => {
-          //code reaches here  console.log("step 4")
           if (person instanceof Person) {
-            //if (isDeepStrictEqual(person, this.filterPerson)) { 
-              console.log(person.lastname.toString+" is equlas "+this.filterPerson.lastname.toString+" ???");
             if(person.lastname.toString === this.filterPerson.lastname.toString) {  
-              console.log("TRUE!")
-            return true;
+            counter = counter+1;
             }
           }
         });
       }
     }
-   return false;
+   return counter>0;
   }
 
 
