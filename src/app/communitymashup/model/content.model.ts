@@ -1,5 +1,6 @@
-import { InformationObject } from './informationobject.model';
-import { CommunityMashupService } from './../communitymashup.service';
+import {InformationObject} from './informationobject.model';
+import {CommunityMashupService} from './../communitymashup.service';
+import {MetaTag} from './metatag.model';
 
 export class Content extends InformationObject {
 
@@ -21,4 +22,13 @@ export class Content extends InformationObject {
   // TBD: getParentContent()
   // TBD: getVideos()
 
+  getTags(): string {
+    var res = '';
+    var tagID: MetaTag[] = this.getMetaTags();
+    for (var tag of tagID) {
+      res = res + tag.name + ', ';
+    }
+    return res.substring(0, res.length - 2);
+    ;
+  }
 }

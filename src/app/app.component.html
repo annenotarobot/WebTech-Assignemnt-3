@@ -73,7 +73,7 @@
       <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let institut of getOrganisations('institut')"
                            #expansionPanel="matExpansionPanel">
         <mat-expansion-panel-header>
-          <mat-panel-title class="organisation-expansion-panel-text">
+          <mat-panel-title class="organisation-expansion-panel">
             {{institut.name}}
           </mat-panel-title>
           <mat-panel-description class="organisation-expansion-panel-text">
@@ -84,34 +84,43 @@
           <mat-expansion-panel *ngFor="let professur of getProfessurenChildOrganisations(institut)"
                                class="professur-panel" [expanded]="allOpen">
             <mat-expansion-panel-header>
-              <mat-panel-title style="color: white;font-family: sans-serif;font-size: 1em;">
+              <mat-panel-title class="professur-panel">
                 {{professur.name}}
               </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-expansion-panel *ngFor="let content of getConnectedAbschlussarbeiten(professur)">
               <mat-expansion-panel-header>
-                <mat-panel-title>
+                <mat-panel-title class="content-title">
                   {{content.alternativeNames}}
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              {{content.stringValue}}<br>
-              <img width="auto" src="{{content.getImages()[0]['fileUrl']}}"><br>
-              <div *ngIf="content.getMetaTags()>0">
-                <li>Tags</li>
-              </div>
-              <br><br>
+              <div class="mat-content-field">
+                {{content.stringValue}}<br>
+                <img width="auto" src="{{content.getImages()[0]['fileUrl']}}"><br>
+                <tr>
+                  <th><h5 style="text-align:left;">Tags: </h5>
+                    <p style="font-family: sans-serif; font-size: 1em; text-align:left;">{{content.getTags()}}</p>
+                  </th>
+                </tr>
+                <br><br></div>
             </mat-expansion-panel>
           </mat-expansion-panel>
           <br>
           <mat-expansion-panel *ngFor="let content of getConnectedAbschlussarbeiten(institut)">
             <mat-expansion-panel-header>
-              <mat-panel-title>
-                Abschlussarbeit: {{content.name}}
+              <mat-panel-title class="content-title">
+                {{content.alternativeNames}}
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <div>
+            <div class="mat-content-field">
               {{content.stringValue}}<br>
-            </div>
+              <img width="auto" src="{{content.getImages()[0]['fileUrl']}}"><br>
+              <tr>
+                <th><h5 style="text-align:left;">Tags: </h5>
+                  <p style="font-family: sans-serif; font-size: 1em; text-align:left;">{{content.getTags()}}</p>
+                </th>
+              </tr>
+              <br><br></div>
           </mat-expansion-panel>
         </div>
       </mat-expansion-panel>

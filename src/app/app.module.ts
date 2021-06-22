@@ -16,6 +16,7 @@ import {BubbleComponent} from './utils/bubble/bubble.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     BrowserModule, HttpClientModule,
     MatDialogModule, MatInputModule,
     MatButtonModule, MatCardModule, MatFormFieldModule, BrowserAnimationsModule, MatExpansionModule,
-    MatSelectModule, DragDropModule, ScrollingModule, MatButtonToggleModule
+    MatSelectModule, DragDropModule, ScrollingModule, MatButtonToggleModule, MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

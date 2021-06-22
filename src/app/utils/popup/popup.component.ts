@@ -1,12 +1,8 @@
-import { Content } from './../../communitymashup/model/content.model';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
-import { Item } from 'src/app/communitymashup/model/item.model';
-import { Person } from 'src/app/communitymashup/model/person.model';
-import { Organisation } from 'src/app/communitymashup/model/organisation.model';
-import { CommunityMashupService } from 'src/app/communitymashup/communitymashup.service';
-import { MetaTag } from 'src/app/communitymashup/model/metatag.model';
+import {Content} from './../../communitymashup/model/content.model';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {CommunityMashupService} from 'src/app/communitymashup/communitymashup.service';
+import {MetaTag} from 'src/app/communitymashup/model/metatag.model';
 
 @Component({
   selector: 'app-popup',
@@ -62,11 +58,12 @@ export class PopupComponent implements OnInit {
   close(): void {
     this.dialogRef.close();
   }
-  getTags():string{
-    var res = "";
-    var tagID:MetaTag[] = this.content.getMetaTags();
-    for (var tag of tagID){
-      res = res + tag.name + " ";
+
+  getTags(): string {
+    var res = '';
+    var tagID: MetaTag[] = this.content.getMetaTags();
+    for (var tag of tagID) {
+      res = res + tag.name + ' ';
     }
     return res;
   }
