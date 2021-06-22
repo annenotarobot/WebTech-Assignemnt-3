@@ -31,9 +31,6 @@
           <mat-form-field>
             <mat-label>Tag wählen</mat-label>
             <mat-select>
-              <!--<mat-option *ngFor="let person of getPersonsWithAbschlussarbeit()"[value]="person">
-                {{person.lastname}}
-              </mat-option> -->
             </mat-select>
           </mat-form-field>
         </th>
@@ -42,47 +39,13 @@
       </tr>
     </table>
   </div>
-
   <br>
   <h2> Ergebnisse </h2>
-
-
-  <!--<div *ngIf = "!creative" id="accordion">
-    exp-panel > exp-panel-h > title > /title > panel-desc > /panel-desc > /exp-panel-h > "content" > /exp-panel
-    <mat-accordion id="#here" multi="true" #accordion="matAccordion">
-      Institute
-      <mat-expansion-panel class="organisation-expansion-panel" *ngFor="let institut of getOrganisations('institut')"
-                           #expansionPanel="matExpansionPanel">
-        <mat-expansion-panel-header>
-          <mat-panel-title class="organisation-expansion-panel-text">
-            {{institut.name}}
-          </mat-panel-title>
-          <mat-panel-description class="organisation-expansion-panel-text">
-            Arbeiten aus dem Institut {{institut.name}}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div *ngFor="let content of getContents('Abschlussarbeit')">
-          <div class="content-div"
-            *ngFor="let orga of getConnectedOrganisations(content)">
-            <mat-expansion-panel *ngIf="orga.name == institut.name">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{content.alternativeNames}}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              {{content.stringValue}}<br>
-              <img width="auto" src="{{content.getImages()[0]['fileUrl']}}">
-            </mat-expansion-panel>
-          </div>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div> -->
   <div *ngIf="creative" style="height:800px">
     <div>
       <button class="mat-button-toggle" value={{creative}} (click)="toggleCreative()">Toggle kreatives Design</button>
     </div>
-    <div id="bubbles" *ngFor="let institut of this.getOrganisations('institut')" style="position:'static';">
+    <div id="bubbles" *ngFor="let institut of this.getOrganisations('institut')" style="position:static;">
       <app-bubble *ngIf="valid(institut)" [institute]="institut" [filterPerson]="filterPerson" [filterTag]="filterTag"
                   [filterOrganisations]="filterOrganisations"
                   [getConnectedAbschlussarbeiten]="getConnectedAbschlussarbeiten"
@@ -93,8 +56,6 @@
                   [checkFilterCriteria]="checkFilterCriteria"></app-bubble>
     </div>
   </div>
-
-
   <br><br>
   <div *ngIf="!creative" id="accordion">
     <div>
@@ -134,7 +95,10 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               {{content.stringValue}}<br>
-              <img width="auto" src="{{content.getImages()[0]['fileUrl']}}">
+              <img width="auto" src="{{content.getImages()[0]['fileUrl']}}"><br>
+              <div *ngIf="content.getMetaTags()>0">
+                <li>Tags</li>
+              </div>
               <br><br>
             </mat-expansion-panel>
           </mat-expansion-panel>
